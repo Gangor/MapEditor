@@ -1,0 +1,4 @@
+<project outputDir="D:\RP_Project\Source\Equation\Program\Tool\MapEditor\Confused" baseDir="D:\RP_Project\Source\Equation\Program\Tool\MapEditor" xmlns="http://confuser.codeplex.com">
+  <packer id="compressor" />
+  <module path="bin\Release\MapEditor.exe" />
+</project>

@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MapEditor.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Collision" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Beige</Value>
+    </Setting>
+    <Setting Name="EventArea" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Fuchsia</Value>
+    </Setting>
+    <Setting Name="Light" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">DarkKhaki</Value>
+    </Setting>
+    <Setting Name="NpcProp" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Gold</Value>
+    </Setting>
+    <Setting Name="Nfp" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Lime</Value>
+    </Setting>
+    <Setting Name="Prop" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">LightSalmon</Value>
+    </Setting>
+    <Setting Name="PVSSegment" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">DarkGray</Value>
+    </Setting>
+    <Setting Name="PVSProp" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Red</Value>
+    </Setting>
+    <Setting Name="Respawn" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Turquoise</Value>
+    </Setting>
+    <Setting Name="Region" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Orange</Value>
+    </Setting>
+    <Setting Name="Water" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Blue</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

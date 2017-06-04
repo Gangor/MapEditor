@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D7CF2677-669A-46B5-9635-495692D3FC0B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MapEditor</RootNamespace>
+    <AssemblyName>MapEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Attributes\PropertyGridBrowserAttribute.cs" />
+    <Compile Include="Extends\PropPropertyConverter.cs" />
+    <Compile Include="Extends\SortableBindingList.cs" />
+    <Compile Include="Extends\TabControlExtends.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Extends\TexturePropertyConverter.cs" />
+    <Compile Include="Dialog\NewProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\NewProject.Designer.cs">
+      <DependentUpon>NewProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditorNFM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditorNFM.Designer.cs">
+      <DependentUpon>EditorNFM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Enum\DrawElement.cs" />
+    <Compile Include="Enum\LightType.cs" />
+    <Compile Include="Extends\BrowserMenuRenderer.cs" />
+    <Compile Include="Extends\CursorExtends.cs" />
+    <Compile Include="Enum\DrawMapMode.cs" />
+    <Compile Include="Extends\ResourceManagerExtends.cs" />
+    <Compile Include="Models\EventAreaScript.cs" />
+    <Compile Include="Models\GrassColony.cs" />
+    <Compile Include="Models\K3DLight.cs" />
+    <Compile Include="Models\KGrass.cs" />
+    <Compile Include="Models\KGrassProp.cs" />
+    <Compile Include="Models\KProp.cs" />
+    <Compile Include="Models\KSegment.cs" />
+    <Compile Include="Models\KTripleColor.cs" />
+    <Compile Include="Models\KColor.cs" />
+    <Compile Include="Models\KVertex.cs" />
+    <Compile Include="Models\LocationInfo.cs" />
+    <Compile Include="Models\PropInfo.cs" />
+    <Compile Include="Models\TextureInfo.cs" />
+    <Compile Include="Models\StructLights.cs" />
+    <Compile Include="Models\MapProperties.cs" />
+    <Compile Include="Models\Nfl.cs" />
+    <Compile Include="Models\Nfm.cs" />
+    <Compile Include="Models\Pvs.cs" />
+    <Compile Include="Models\Tile.cs" />
+    <Compile Include="Models\Water.cs" />
+    <Compile Include="Modules\2DUtils.cs" />
+    <Compile Include="Modules\CfgManager.cs" />
+    <Compile Include="Modules\NfmManager.cs" />
+    <Compile Include="Modules\NflManager.cs" />
+    <Compile Include="Modules\PvsManager.cs" />
+    <Compile Include="Modules\XEnv.cs" />
+    <Compile Include="Models\Template.cs" />
+    <Compile Include="Models\K3DVector.cs" />
+    <Compile Include="Models\Nfp.cs" />
+    <Compile Include="Models\Polygon3.cs" />
+    <Compile Include="Modules\MapManager.cs" />
+    <Compile Include="Modules\MapWorker.cs" />
+    <Compile Include="Modules\NfpManager.cs" />
+    <Compile Include="Modules\NfaManager.cs" />
+    <Compile Include="Modules\NfeManager.cs" />
+    <Compile Include="Modules\NfcManager.cs" />
+    <Compile Include="Modules\NfsManager.cs" />
+    <Compile Include="Modules\NfwManager.cs" />
+    <Compile Include="Modules\QpfManager.cs" />
+    <Compile Include="Events\PaintingArgs.cs" />
+    <Compile Include="Extends\CollectionEditorExtends.cs" />
+    <Compile Include="Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Global.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\K2DVector.cs" />
+    <Compile Include="Models\Nfa.cs" />
+    <Compile Include="Models\Nfc.cs" />
+    <Compile Include="Models\Nfe.cs" />
+    <Compile Include="Models\Nfs.cs" />
+    <Compile Include="Models\Nfw.cs" />
+    <Compile Include="Models\Polygon2.cs" />
+    <Compile Include="Models\Qpf.cs" />
+    <Compile Include="Modules\XLog.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\cross.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\forbidden.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\help.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\left_ptr.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\left_ptr_watch.ani">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\oxy-black.inf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\pencil.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\pointing_hand.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\size_all.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\size_bdiag.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\size_fdiag.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\size_hor.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\size_ver.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\Text.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\up_arrow.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cursor\watch.ani">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\NewProject.en.resx">
+      <DependentUpon>NewProject.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\NewProject.fr.resx">
+      <DependentUpon>NewProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\NewProject.resx">
+      <DependentUpon>NewProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\Options.en.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor.en.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor.fr.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditorNFM.resx">
+      <DependentUpon>EditorNFM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="mapeditor.opt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Cursor\LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="logo.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
