@@ -178,7 +178,7 @@ namespace MapEditor.Models
         
         public override string ToString()
         {
-            return Properties.Resources.ResourceManager.GetStringFormat("Location_Name_Text", Description);
+            return string.Format("Region : {0}", Description);
         }
         
         /// <summary>
@@ -276,7 +276,7 @@ namespace MapEditor.Models
         
         public override string ToString()
         {
-            return Properties.Resources.ResourceManager.GetStringFormat("PropScriptInfo_Name_Text", PropId);
+            return string.Format("NPC : {0}", PropId);
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace MapEditor.Models
         
         public override string ToString()
         {
-            return Properties.Resources.ResourceManager.GetStringFormat("Function_Name_Text", FunctionString);
+            return string.Format("Function : {0}", FunctionString);
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

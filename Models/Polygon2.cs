@@ -37,7 +37,7 @@ namespace MapEditor.Models
 
         public override string ToString()
         {
-            return Properties.Resources.ResourceManager.GetStringFormat("Polygon2_Name_Text", Points.Count);
+            return string.Format("Polygons x{0}", Points.Count);
         }
 
         /// <summary>

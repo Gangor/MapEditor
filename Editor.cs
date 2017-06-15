@@ -2048,6 +2048,7 @@ namespace MapEditor
         #region Log control
 
         private Levels currentLevel = Levels.Debug;
+        private int oldHeightConsole = 227;
 
         /// <summary>
         /// Event used for collapse/uncollapse log error
@@ -2056,21 +2057,22 @@ namespace MapEditor
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+
             if (splitContainer4.Panel2Collapsed)
             {
-                splitContainer3.SplitterDistance = splitContainer3.Height - 227;
+                splitContainer3.SplitterDistance = splitContainer3.Height - oldHeightConsole;
                 splitContainer4.Panel2Collapsed = false;
                 button1.ForeColor = Color.White;
                 LogRtb.ScrollToCaret();
             }
             else
             {
+                oldHeightConsole = splitContainer4.Height;
                 splitContainer3.SplitterDistance = splitContainer3.Height - 27;
                 splitContainer4.Panel2Collapsed = true;
             }
 
             splitContainer4.SplitterDistance = 27;
-
             splitContainer4.Refresh();
         }
 

@@ -106,7 +106,7 @@ namespace MapEditor.Models
         
         public override string ToString()
         {
-            return Properties.Resources.ResourceManager.GetStringFormat("Water_Name_Text", waterId);
+            return string.Format("Water : {0}", waterId);
         }
 
         /// <summary>

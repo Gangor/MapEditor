@@ -56,7 +56,7 @@ namespace MapEditor.Modules
                     Sign = Encoding.Default.GetString(b.ReadBytes(18));
                     Version = b.ReadUInt32();
 
-                    XLog.WriteLine(Levels.Debug, $"QPF version {Version}.");
+                    XLog.WriteLine(Levels.Info, $"QPF version {Version}.");
 
 #if DEBUG == false
                     if (!SupportedVersion.Contains(Version))

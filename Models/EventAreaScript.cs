@@ -39,7 +39,7 @@ namespace MapEditor.Models
 
         public override string ToString()
         {
-            return Properties.Resources.ResourceManager.GetStringFormat("EventAreaScript_Name_Text", AreaId);
+            return string.Format("Event : {0}", AreaId);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

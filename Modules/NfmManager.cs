@@ -75,7 +75,7 @@ namespace MapEditor.Modules
                     }
 #endif
 
-                    XLog.WriteLine(Levels.Debug, $"NFM version {Version}.");
+                    XLog.WriteLine(Levels.Info, $"NFM version {Version}.");
 
                     var dwMapPropertiesOffset = b.ReadInt32();
                     var dwTerrainSegmentOffset = b.ReadInt32();

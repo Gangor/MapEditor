@@ -54,7 +54,7 @@ namespace MapEditor.Modules
                     Sign = Encoding.Default.GetString(b.ReadBytes(16));
                     Version = b.ReadUInt16();
 
-                    XLog.WriteLine(Levels.Debug, $"PVS version {Version}.");
+                    XLog.WriteLine(Levels.Info, $"PVS version {Version}.");
 
 #if DEBUG == false
                     if (!SupportedVersion.Contains(Version))

@@ -49,6 +49,7 @@ namespace MapEditor.Modules
         public void Blank()
         {
             Respawns = new List<Location>();
+            Props = new List<PropScriptInfo>();
         }
 
         /// <summary>
@@ -73,8 +74,6 @@ namespace MapEditor.Modules
                     Sign = Encoding.Default.GetString(b.ReadBytes(16));
                     Version = b.ReadInt32();
 
-                    XLog.WriteLine(Levels.Debug, $"NFS version {Version}.");
-
 #if DEBUG == false
                     if (!SupportedVersion.Contains(Version))
                     {
@@ -83,7 +82,10 @@ namespace MapEditor.Modules
                     }
 #endif
 
-                    /* nfs.dwEventLocationOffset = */ b.ReadInt32();
+                    XLog.WriteLine(Levels.Info, $"NFS version {Version}.");
+
+                    /* nfs.dwEventLocationOffset = */
+                    b.ReadInt32();
                     /* nfs.dwEventScriptOffset = */ b.ReadInt32();
                     /* nfs.dwPropScriptOffset = */ b.ReadInt32();
 

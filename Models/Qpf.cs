@@ -190,7 +190,7 @@ namespace MapEditor.Models
             }
         }
 
-        [Category("Scale")]
+        [Category("Size")]
         [DisplayName("X")]
         [PropertyGridBrowsable(true)]
         public float ScaleX
@@ -203,7 +203,7 @@ namespace MapEditor.Models
             }
         }
 
-        [Category("Scale")]
+        [Category("Size")]
         [DisplayName("Y")]
         [PropertyGridBrowsable(true)]
         public float ScaleY
@@ -216,7 +216,7 @@ namespace MapEditor.Models
             }
         }
 
-        [Category("Scale")]
+        [Category("Size")]
         [DisplayName("Z")]
         [PropertyGridBrowsable(true)]
         public float ScaleZ
@@ -270,7 +270,7 @@ namespace MapEditor.Models
         
         public override string ToString()
         {
-            return Properties.Resources.ResourceManager.GetStringFormat("Prop_Name_Text", QuestPropID);
+            return string.Format("Gate : {0}", QuestPropID);
         }
 
         /// <summary>

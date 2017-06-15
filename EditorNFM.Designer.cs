@@ -68,8 +68,18 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.gameToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tabControl = new MapEditor.Extends.TabControlExtends();
+            this.propTab = new System.Windows.Forms.TabPage();
+            this.PropGrid = new System.Windows.Forms.DataGridView();
+            this.grassTab = new System.Windows.Forms.TabPage();
+            this.grassGrid = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.speedGrassTab = new System.Windows.Forms.TabPage();
+            this.speedGrassGrid = new System.Windows.Forms.DataGridView();
+            this.terrainTab = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.mapPictureBox = new System.Windows.Forms.PictureBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.minimapPictureBox = new System.Windows.Forms.PictureBox();
@@ -88,16 +98,6 @@
             this.zoomPlusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomLessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl = new MapEditor.Extends.TabControlExtends();
-            this.propTab = new System.Windows.Forms.TabPage();
-            this.PropGrid = new System.Windows.Forms.DataGridView();
-            this.grassTab = new System.Windows.Forms.TabPage();
-            this.grassGrid = new System.Windows.Forms.DataGridView();
-            this.speedGrassTab = new System.Windows.Forms.TabPage();
-            this.speedGrassGrid = new System.Windows.Forms.DataGridView();
-            this.terrainTab = new System.Windows.Forms.TabPage();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.mapPictureBox = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -109,7 +109,17 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.propTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PropGrid)).BeginInit();
+            this.grassTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grassGrid)).BeginInit();
             this.contextMenuStrip2.SuspendLayout();
+            this.speedGrassTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.speedGrassGrid)).BeginInit();
+            this.terrainTab.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mapPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -122,16 +132,6 @@
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.menuStrip3.SuspendLayout();
-            this.tabControl.SuspendLayout();
-            this.propTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PropGrid)).BeginInit();
-            this.grassTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grassGrid)).BeginInit();
-            this.speedGrassTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.speedGrassGrid)).BeginInit();
-            this.terrainTab.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mapPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -369,25 +369,262 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(932, 494);
-            this.splitContainer1.SplitterDistance = 716;
+            this.splitContainer1.SplitterDistance = 720;
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 9;
+            // 
+            // tabControl
+            // 
+            this.tabControl.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabControl.Controls.Add(this.propTab);
+            this.tabControl.Controls.Add(this.grassTab);
+            this.tabControl.Controls.Add(this.speedGrassTab);
+            this.tabControl.Controls.Add(this.terrainTab);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl.Multiline = true;
+            this.tabControl.Name = "tabControl";
+            this.tabControl.Padding = new System.Drawing.Point(0, 0);
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(720, 494);
+            this.tabControl.TabIndex = 0;
+            this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
+            // 
+            // propTab
+            // 
+            this.propTab.BackColor = System.Drawing.Color.Transparent;
+            this.propTab.Controls.Add(this.PropGrid);
+            this.propTab.ForeColor = System.Drawing.Color.White;
+            this.propTab.Location = new System.Drawing.Point(1, 1);
+            this.propTab.Margin = new System.Windows.Forms.Padding(0);
+            this.propTab.Name = "propTab";
+            this.propTab.Size = new System.Drawing.Size(718, 474);
+            this.propTab.TabIndex = 0;
+            this.propTab.Text = "Props";
+            // 
+            // PropGrid
+            // 
+            this.PropGrid.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            this.PropGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.PropGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.PropGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PropGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.PropGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.PropGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            this.PropGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PropGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.PropGrid.Location = new System.Drawing.Point(0, 0);
+            this.PropGrid.Margin = new System.Windows.Forms.Padding(0);
+            this.PropGrid.Name = "PropGrid";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PropGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            this.PropGrid.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.PropGrid.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.PropGrid.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.PropGrid.Size = new System.Drawing.Size(718, 474);
+            this.PropGrid.TabIndex = 1;
+            this.PropGrid.EditModeChanged += new System.EventHandler(this.PropGrid_CurrentCellChanged);
+            this.PropGrid.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.PropGrid_CellContextMenuStripNeeded);
+            this.PropGrid.CurrentCellChanged += new System.EventHandler(this.PropGrid_CurrentCellChanged);
+            this.PropGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Datagrid_DataBindingComplete);
+            this.PropGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PropGrid_KeyDown);
+            // 
+            // grassTab
+            // 
+            this.grassTab.BackColor = System.Drawing.Color.Transparent;
+            this.grassTab.Controls.Add(this.grassGrid);
+            this.grassTab.ForeColor = System.Drawing.Color.White;
+            this.grassTab.Location = new System.Drawing.Point(1, 1);
+            this.grassTab.Margin = new System.Windows.Forms.Padding(0);
+            this.grassTab.Name = "grassTab";
+            this.grassTab.Size = new System.Drawing.Size(718, 474);
+            this.grassTab.TabIndex = 1;
+            this.grassTab.Text = "Grass";
+            // 
+            // grassGrid
+            // 
+            this.grassGrid.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            this.grassGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.grassGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grassGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.grassGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grassGrid.ContextMenuStrip = this.contextMenuStrip2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grassGrid.DefaultCellStyle = dataGridViewCellStyle8;
+            this.grassGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grassGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.grassGrid.Location = new System.Drawing.Point(0, 0);
+            this.grassGrid.Name = "grassGrid";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grassGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.White;
+            this.grassGrid.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            this.grassGrid.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.grassGrid.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.grassGrid.Size = new System.Drawing.Size(718, 474);
+            this.grassGrid.TabIndex = 1;
+            this.grassGrid.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.grassGrid_CellContextMenuStripNeeded);
+            this.grassGrid.CurrentCellChanged += new System.EventHandler(this.grassGrid_CurrentCellChanged);
+            this.grassGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Datagrid_DataBindingComplete);
             // 
             // contextMenuStrip2
             // 
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.duplicateToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(125, 26);
             // 
             // duplicateToolStripMenuItem
             // 
             this.duplicateToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
             this.duplicateToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
-            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.duplicateToolStripMenuItem.Text = "Duplicate";
             this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
+            // 
+            // speedGrassTab
+            // 
+            this.speedGrassTab.BackColor = System.Drawing.Color.Transparent;
+            this.speedGrassTab.Controls.Add(this.speedGrassGrid);
+            this.speedGrassTab.ForeColor = System.Drawing.Color.White;
+            this.speedGrassTab.Location = new System.Drawing.Point(1, 1);
+            this.speedGrassTab.Name = "speedGrassTab";
+            this.speedGrassTab.Size = new System.Drawing.Size(718, 474);
+            this.speedGrassTab.TabIndex = 6;
+            this.speedGrassTab.Text = "Speed grass";
+            // 
+            // speedGrassGrid
+            // 
+            this.speedGrassGrid.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
+            this.speedGrassGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            this.speedGrassGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.speedGrassGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.speedGrassGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.speedGrassGrid.DefaultCellStyle = dataGridViewCellStyle13;
+            this.speedGrassGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.speedGrassGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.speedGrassGrid.Location = new System.Drawing.Point(0, 0);
+            this.speedGrassGrid.Name = "speedGrassGrid";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.speedGrassGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.White;
+            this.speedGrassGrid.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            this.speedGrassGrid.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.speedGrassGrid.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.speedGrassGrid.Size = new System.Drawing.Size(718, 474);
+            this.speedGrassGrid.TabIndex = 2;
+            this.speedGrassGrid.CurrentCellChanged += new System.EventHandler(this.speedGrassGrid_CurrentCellChanged);
+            this.speedGrassGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Datagrid_DataBindingComplete);
+            // 
+            // terrainTab
+            // 
+            this.terrainTab.BackColor = System.Drawing.Color.Transparent;
+            this.terrainTab.Controls.Add(this.flowLayoutPanel1);
+            this.terrainTab.ForeColor = System.Drawing.Color.White;
+            this.terrainTab.Location = new System.Drawing.Point(1, 1);
+            this.terrainTab.Name = "terrainTab";
+            this.terrainTab.Size = new System.Drawing.Size(718, 474);
+            this.terrainTab.TabIndex = 2;
+            this.terrainTab.Text = "Terrain";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Controls.Add(this.mapPictureBox);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(718, 474);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // mapPictureBox
+            // 
+            this.mapPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.mapPictureBox.ContextMenuStrip = this.contextMenuStrip1;
+            this.mapPictureBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.mapPictureBox.Location = new System.Drawing.Point(3, 3);
+            this.mapPictureBox.Name = "mapPictureBox";
+            this.mapPictureBox.Size = new System.Drawing.Size(512, 512);
+            this.mapPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.mapPictureBox.TabIndex = 3;
+            this.mapPictureBox.TabStop = false;
+            this.mapPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mapPictureBox_MouseDown);
+            this.mapPictureBox.MouseLeave += new System.EventHandler(this.mapPictureBox_MouseLeave);
+            this.mapPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapPictureBox_MouseMove);
+            this.mapPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mapPictureBox_MouseUp);
             // 
             // splitContainer2
             // 
@@ -405,7 +642,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.propertyGrid1);
-            this.splitContainer2.Size = new System.Drawing.Size(214, 494);
+            this.splitContainer2.Size = new System.Drawing.Size(210, 494);
             this.splitContainer2.SplitterDistance = 236;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -426,19 +663,20 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.minimapZoomLessButton);
             this.splitContainer3.Panel2.Controls.Add(this.minimapZoomPlusButton);
-            this.splitContainer3.Size = new System.Drawing.Size(214, 236);
+            this.splitContainer3.Size = new System.Drawing.Size(210, 236);
             this.splitContainer3.SplitterDistance = 205;
             this.splitContainer3.TabIndex = 0;
             // 
             // minimapPictureBox
             // 
             this.minimapPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.minimapPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.minimapPictureBox.ContextMenuStrip = this.contextMenuStrip1;
             this.minimapPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.minimapPictureBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.minimapPictureBox.Location = new System.Drawing.Point(0, 0);
             this.minimapPictureBox.Name = "minimapPictureBox";
-            this.minimapPictureBox.Size = new System.Drawing.Size(214, 205);
+            this.minimapPictureBox.Size = new System.Drawing.Size(210, 205);
             this.minimapPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.minimapPictureBox.TabIndex = 7;
             this.minimapPictureBox.TabStop = false;
@@ -488,7 +726,7 @@
             this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
             this.propertyGrid1.Margin = new System.Windows.Forms.Padding(5);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(214, 254);
+            this.propertyGrid1.Size = new System.Drawing.Size(210, 254);
             this.propertyGrid1.TabIndex = 9;
             this.propertyGrid1.ToolbarVisible = false;
             this.propertyGrid1.ViewBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
@@ -627,243 +865,6 @@
             this.zoomRestoreToolStripMenuItem.Name = "zoomRestoreToolStripMenuItem";
             this.zoomRestoreToolStripMenuItem.Size = new System.Drawing.Size(28, 26);
             // 
-            // tabControl
-            // 
-            this.tabControl.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.tabControl.Controls.Add(this.propTab);
-            this.tabControl.Controls.Add(this.grassTab);
-            this.tabControl.Controls.Add(this.speedGrassTab);
-            this.tabControl.Controls.Add(this.terrainTab);
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(0);
-            this.tabControl.Multiline = true;
-            this.tabControl.Name = "tabControl";
-            this.tabControl.Padding = new System.Drawing.Point(0, 0);
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(716, 494);
-            this.tabControl.TabIndex = 0;
-            this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
-            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
-            // 
-            // propTab
-            // 
-            this.propTab.BackColor = System.Drawing.Color.Transparent;
-            this.propTab.Controls.Add(this.PropGrid);
-            this.propTab.ForeColor = System.Drawing.Color.White;
-            this.propTab.Location = new System.Drawing.Point(1, 1);
-            this.propTab.Margin = new System.Windows.Forms.Padding(0);
-            this.propTab.Name = "propTab";
-            this.propTab.Size = new System.Drawing.Size(714, 474);
-            this.propTab.TabIndex = 0;
-            this.propTab.Text = "Props";
-            // 
-            // PropGrid
-            // 
-            this.PropGrid.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            this.PropGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.PropGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.PropGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PropGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.PropGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.PropGrid.DefaultCellStyle = dataGridViewCellStyle3;
-            this.PropGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PropGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.PropGrid.Location = new System.Drawing.Point(0, 0);
-            this.PropGrid.Margin = new System.Windows.Forms.Padding(0);
-            this.PropGrid.Name = "PropGrid";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PropGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            this.PropGrid.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.PropGrid.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.PropGrid.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.PropGrid.Size = new System.Drawing.Size(714, 474);
-            this.PropGrid.TabIndex = 1;
-            this.PropGrid.EditModeChanged += new System.EventHandler(this.PropGrid_CurrentCellChanged);
-            this.PropGrid.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.PropGrid_CellContextMenuStripNeeded);
-            this.PropGrid.CurrentCellChanged += new System.EventHandler(this.PropGrid_CurrentCellChanged);
-            this.PropGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Datagrid_DataBindingComplete);
-            this.PropGrid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PropGrid_KeyDown);
-            // 
-            // grassTab
-            // 
-            this.grassTab.BackColor = System.Drawing.Color.Transparent;
-            this.grassTab.Controls.Add(this.grassGrid);
-            this.grassTab.ForeColor = System.Drawing.Color.White;
-            this.grassTab.Location = new System.Drawing.Point(1, 1);
-            this.grassTab.Margin = new System.Windows.Forms.Padding(0);
-            this.grassTab.Name = "grassTab";
-            this.grassTab.Size = new System.Drawing.Size(714, 474);
-            this.grassTab.TabIndex = 1;
-            this.grassTab.Text = "Grass";
-            // 
-            // grassGrid
-            // 
-            this.grassGrid.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
-            this.grassGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.grassGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grassGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.grassGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grassGrid.ContextMenuStrip = this.contextMenuStrip2;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grassGrid.DefaultCellStyle = dataGridViewCellStyle8;
-            this.grassGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grassGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.grassGrid.Location = new System.Drawing.Point(0, 0);
-            this.grassGrid.Name = "grassGrid";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grassGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.White;
-            this.grassGrid.RowsDefaultCellStyle = dataGridViewCellStyle10;
-            this.grassGrid.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.grassGrid.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.grassGrid.Size = new System.Drawing.Size(714, 474);
-            this.grassGrid.TabIndex = 1;
-            this.grassGrid.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.grassGrid_CellContextMenuStripNeeded);
-            this.grassGrid.CurrentCellChanged += new System.EventHandler(this.grassGrid_CurrentCellChanged);
-            this.grassGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Datagrid_DataBindingComplete);
-            // 
-            // speedGrassTab
-            // 
-            this.speedGrassTab.BackColor = System.Drawing.Color.Transparent;
-            this.speedGrassTab.Controls.Add(this.speedGrassGrid);
-            this.speedGrassTab.ForeColor = System.Drawing.Color.White;
-            this.speedGrassTab.Location = new System.Drawing.Point(1, 1);
-            this.speedGrassTab.Name = "speedGrassTab";
-            this.speedGrassTab.Size = new System.Drawing.Size(714, 474);
-            this.speedGrassTab.TabIndex = 6;
-            this.speedGrassTab.Text = "Speed grass";
-            // 
-            // speedGrassGrid
-            // 
-            this.speedGrassGrid.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
-            this.speedGrassGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
-            this.speedGrassGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.speedGrassGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.speedGrassGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.speedGrassGrid.DefaultCellStyle = dataGridViewCellStyle13;
-            this.speedGrassGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.speedGrassGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.speedGrassGrid.Location = new System.Drawing.Point(0, 0);
-            this.speedGrassGrid.Name = "speedGrassGrid";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.speedGrassGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.White;
-            this.speedGrassGrid.RowsDefaultCellStyle = dataGridViewCellStyle15;
-            this.speedGrassGrid.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-            this.speedGrassGrid.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.speedGrassGrid.Size = new System.Drawing.Size(714, 474);
-            this.speedGrassGrid.TabIndex = 2;
-            this.speedGrassGrid.CurrentCellChanged += new System.EventHandler(this.speedGrassGrid_CurrentCellChanged);
-            this.speedGrassGrid.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Datagrid_DataBindingComplete);
-            // 
-            // terrainTab
-            // 
-            this.terrainTab.BackColor = System.Drawing.Color.Transparent;
-            this.terrainTab.Controls.Add(this.flowLayoutPanel1);
-            this.terrainTab.ForeColor = System.Drawing.Color.White;
-            this.terrainTab.Location = new System.Drawing.Point(1, 1);
-            this.terrainTab.Name = "terrainTab";
-            this.terrainTab.Size = new System.Drawing.Size(714, 474);
-            this.terrainTab.TabIndex = 2;
-            this.terrainTab.Text = "Terrain";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Controls.Add(this.mapPictureBox);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(714, 474);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // mapPictureBox
-            // 
-            this.mapPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.mapPictureBox.ContextMenuStrip = this.contextMenuStrip1;
-            this.mapPictureBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.mapPictureBox.Location = new System.Drawing.Point(3, 3);
-            this.mapPictureBox.Name = "mapPictureBox";
-            this.mapPictureBox.Size = new System.Drawing.Size(512, 512);
-            this.mapPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.mapPictureBox.TabIndex = 3;
-            this.mapPictureBox.TabStop = false;
-            this.mapPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mapPictureBox_MouseDown);
-            this.mapPictureBox.MouseLeave += new System.EventHandler(this.mapPictureBox_MouseLeave);
-            this.mapPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapPictureBox_MouseMove);
-            this.mapPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mapPictureBox_MouseUp);
-            // 
             // EditorNFM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -891,7 +892,17 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
+            this.propTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PropGrid)).EndInit();
+            this.grassTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grassGrid)).EndInit();
             this.contextMenuStrip2.ResumeLayout(false);
+            this.speedGrassTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.speedGrassGrid)).EndInit();
+            this.terrainTab.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mapPictureBox)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
@@ -907,16 +918,6 @@
             this.menuStrip2.PerformLayout();
             this.menuStrip3.ResumeLayout(false);
             this.menuStrip3.PerformLayout();
-            this.tabControl.ResumeLayout(false);
-            this.propTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PropGrid)).EndInit();
-            this.grassTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grassGrid)).EndInit();
-            this.speedGrassTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.speedGrassGrid)).EndInit();
-            this.terrainTab.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mapPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }

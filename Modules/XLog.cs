@@ -16,7 +16,7 @@ namespace MapEditor.Modules
                 switch (level)
                 {
                     case Levels.Debug:
-                        color = Color.White;
+                        color = Color.LightGray;
                         break;
                     case Levels.Info:
                         color = Color.White;

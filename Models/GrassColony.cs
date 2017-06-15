@@ -68,7 +68,7 @@ namespace MapEditor.Models
             }
         }
 
-        [DisplayName("HeightP")]
+        [DisplayName("Height P")]
         public float HeightP
         {
             get { return heightP; }
@@ -79,7 +79,7 @@ namespace MapEditor.Models
             }
         }
 
-        [DisplayName("HeightM")]
+        [DisplayName("Height M")]
         public float HeightM
         {
             get { return heightM; }

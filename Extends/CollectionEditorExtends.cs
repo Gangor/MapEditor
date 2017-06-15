@@ -37,9 +37,11 @@ namespace MapEditor.Extends
                         (tlpLayout.Controls[1] as TableLayoutPanel).Visible = false;
                 }
                 */
-                
-                if (tlpLayout.Controls[6].Controls[0] is Button)
-                    (tlpLayout.Controls[6].Controls[0] as Button).Click += propertyGrid_OkClick;
+
+                frmCollectionEditorForm.FormClosing += propertyGrid_OkClick;
+
+                if (tlpLayout.Controls[6].Controls[1] is Button)
+                    (tlpLayout.Controls[6].Controls[1] as Button).Click += propertyGrid_OkClick;
 
                 if (tlpLayout.Controls[4] is ListBox)
                 {
