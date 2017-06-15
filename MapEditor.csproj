@@ -62,12 +62,6 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Attributes\PropertyGridBrowserAttribute.cs" />
-    <Compile Include="EditorTexture.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EditorTexture.Designer.cs">
-      <DependentUpon>EditorTexture.cs</DependentUpon>
-    </Compile>
     <Compile Include="Extends\PropPropertyConverter.cs" />
     <Compile Include="Extends\SortableBindingList.cs" />
     <Compile Include="Extends\TabControlExtends.cs">
@@ -229,9 +223,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EditorTexture.resx">
-      <DependentUpon>EditorTexture.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditorNFM.resx">
       <DependentUpon>EditorNFM.cs</DependentUpon>
