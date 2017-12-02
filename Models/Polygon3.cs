@@ -1,5 +1,6 @@
 ﻿using MapEditor.Attributes;
 using MapEditor.Extends;
+using MapEditor.Modules;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -9,12 +10,12 @@ namespace MapEditor.Models
 {
     public class Polygon3 : INotifyPropertyChanged
     {
-        private List<K3DVector> points = new List<K3DVector>();
+        private List<K3DPosition> points = new List<K3DPosition>();
 
         [DisplayName("Points")]
         [PropertyGridBrowsable(true)]
         [Editor(typeof(CollectionEditorExtends), typeof(UITypeEditor))]
-        public List<K3DVector> Points
+        public List<K3DPosition> Points
         {
             get { return points; }
             set
@@ -29,24 +30,23 @@ namespace MapEditor.Models
             return string.Format("Polygons x{0}", Points.Count);
         }
 
-        /// <summary>
-        /// Convert to pixel location
-        /// </summary>
-        /// <returns></returns>
-        public PointF[] ToPoints()
-        {
-            var list = new PointF[Points.Count];
+		/// <summary>
+		/// Convert to pixel location
+		/// </summary>
+		/// <returns></returns>
+		public PointF[] ToPoints()
+		{
+			var points = new List<PointF>();
 
-            for (int i = 0; i < Points.Count; i++)
-            {
-                list[i] = new PointF();
-                list[i].X = (Points[i].X / 7.875f);
-                list[i].Y = (Points[i].Y / 7.875f);
-            }
-            return list;
-        }
+			foreach (var point in Points)
+			{
+				points.Add(new PointF(point.X, point.Y));
+			}
 
-        protected virtual void OnPropertyChanged(string propertyName)
+			return _2DUtils.UnAdjustPolygonPoint(points, 1f, false, false);
+		}
+
+		protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

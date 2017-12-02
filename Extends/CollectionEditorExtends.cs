@@ -6,73 +6,53 @@ using System.Windows.Forms;
 
 namespace MapEditor.Extends
 {
-    public class CollectionEditorExtends : CollectionEditor
-    {
-        // Define a static event to expose the inner PropertyGrid's
-        // PropertyValueChanged event args...
-        public delegate void OkClickEventHandler(object sender, EventArgs e);
-        public delegate void PropertyValueChangedEventHandler(object sender, PropertyValueChangedEventArgs e);
+	public class CollectionEditorExtends : CollectionEditor
+	{
+		public delegate void OkClickEventHandler(object sender, EventArgs e);
+		public delegate void PropertyValueChangedEventHandler(object sender, PropertyValueChangedEventArgs e);
+		
+		public CollectionEditorExtends(Type type) : base(type) { }
+		
+		protected override CollectionForm CreateCollectionForm()
+		{
+			var collectionForm = base.CreateCollectionForm();
+			var frmCollectionEditorForm = collectionForm as Form;
+			var tlpLayout = frmCollectionEditorForm.Controls[0] as TableLayoutPanel;
 
-        // Inherit the default constructor from the standard
-        // Collection Editor...
-        public CollectionEditorExtends(Type type) : base(type) { }
+			if (tlpLayout != null)
+			{
+				frmCollectionEditorForm.FormClosing += propertyGrid_OkClick;
 
-        // Override this method in order to access the containing user controls
-        // from the default Collection Editor form or to add new ones...
-        protected override CollectionForm CreateCollectionForm()
-        {
-            // Getting the default layout of the Collection Editor...
-            CollectionForm collectionForm = base.CreateCollectionForm();
+				if (tlpLayout.Controls[6].Controls[1] is Button)
+					(tlpLayout.Controls[6].Controls[1] as Button).Click += propertyGrid_OkClick;
 
-            Form frmCollectionEditorForm = collectionForm as Form;
-            TableLayoutPanel tlpLayout = frmCollectionEditorForm.Controls[0] as TableLayoutPanel;
+				if (tlpLayout.Controls[4] is ListBox)
+				{
+					var listBox = tlpLayout.Controls[4] as ListBox;
+				}
+				
+				if (tlpLayout.Controls[5] is PropertyGrid)
+				{
+					PropertyGrid propertyGrid = tlpLayout.Controls[5] as PropertyGrid;
+					propertyGrid.BrowsableAttributes = new AttributeCollection(new PropertyGridBrowsableAttribute(true));
+					propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(propertyGrid_PropertyValueChanged);
+				}
+			}
 
-            if (tlpLayout != null)
-            {
-                /*
-                if (this.CollectionType.BaseType == typeof(Array))
-                {
-                    // Find the Add button
-                    if (tlpLayout.Controls[1] is TableLayoutPanel)
-                        (tlpLayout.Controls[1] as TableLayoutPanel).Visible = false;
-                }
-                */
+			return collectionForm;
+		}
 
-                frmCollectionEditorForm.FormClosing += propertyGrid_OkClick;
+		void propertyGrid_OkClick(object sender, EventArgs e)
+		{
+			OkClick?.Invoke(this, e);
+		}
 
-                if (tlpLayout.Controls[6].Controls[1] is Button)
-                    (tlpLayout.Controls[6].Controls[1] as Button).Click += propertyGrid_OkClick;
+		void propertyGrid_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
+		{
+			PropertyValueChanged?.Invoke(this, e);
+		}
 
-                if (tlpLayout.Controls[4] is ListBox)
-                {
-                    var listBox = tlpLayout.Controls[4] as ListBox;
-                }
-
-                // Get a reference to the inner PropertyGrid and hook
-                // an event handler to it.
-                if (tlpLayout.Controls[5] is PropertyGrid)
-                {
-                    PropertyGrid propertyGrid = tlpLayout.Controls[5] as PropertyGrid;
-                    propertyGrid.BrowsableAttributes = new AttributeCollection(new PropertyGridBrowsableAttribute(true));
-                    propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(propertyGrid_PropertyValueChanged);
-                }
-            }
-
-            return collectionForm;
-        }
-
-        void propertyGrid_OkClick(object sender, EventArgs e)
-        {
-            OkClick?.Invoke(this, e);
-        }
-
-        void propertyGrid_PropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
-        {
-            // Fire our customized collection event...
-            PropertyValueChanged?.Invoke(this, e);
-        }
-
-        public static event OkClickEventHandler OkClick;
-        public static event PropertyValueChangedEventHandler PropertyValueChanged;
-    }
+		public static event OkClickEventHandler OkClick;
+		public static event PropertyValueChangedEventHandler PropertyValueChanged;
+	}
 }

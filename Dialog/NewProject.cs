@@ -4,28 +4,26 @@ namespace MapEditor.Dialog
 {
     public partial class NewProject : Form
     {
-        public string Project { get; set; }
+        public string ProjectName { get; set; }
 
+		/// <summary>
+		/// Initialise a new instance of form
+		/// </summary>
         public NewProject()
         {
             InitializeComponent();
-        }
 
-        private void textBox1_TextChanged(object sender, System.EventArgs e)
-        {
-            Project = textBox1.Text;
-        }
+			textbox.DataBindings.Add(new Binding("Text", this, nameof(ProjectName)));
+		}
 
+		/// <summary>
+		/// Method used for confirm
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void button1_Click(object sender, System.EventArgs e)
         {
             DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        private void button2_Click(object sender, System.EventArgs e)
-        {
-            DialogResult = DialogResult.None;
-            Close();
         }
     }
 }

@@ -1,156 +1,163 @@
 ﻿using MapEditor.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 
 namespace MapEditor.Modules
 {
-    public class NfeManager : Nfe
-    {
-        public event EventHandler<EventAreaScript> Added;
-        public event EventHandler<EventArgs> Painting;
-        public event EventHandler<EventArgs> Removed;
+	public class NfeManager : Nfe
+	{
+		public event EventHandler<EventAreaScript> Added;
+		public event EventHandler<EventArgs> Painting;
+		public event EventHandler<EventArgs> Removed;
 
-        /// <summary>
-        /// Initialize a new instance
-        /// </summary>
-        public NfeManager() : base(true) { }
+		/// <summary>
+		/// Initialize a new instance
+		/// </summary>
+		public NfeManager() : base(true) { Blank(); }
 
-        /// <summary>
-        /// Add new regions
-        /// </summary>
-        /// <param name="location"></param>
-        public void AddEventArea(EventAreaScript eventArea)
-        {
-            Events.Add(eventArea);
+		/// <summary>
+		/// Add new regions
+		/// </summary>
+		/// <param name="location"></param>
+		public void Add(PointF[] points)
+		{
+			var eventArea = new EventAreaScript();
+			var polygon = _2DUtils.PointToPolygon(points);
 
-            Added?.Invoke(this, eventArea);
-        }
+			eventArea.Polygons.Add(polygon);
+			Events.Add(eventArea);
 
-        /// <summary>
-        /// Reinitilize child objet
-        /// </summary>
-        public void Blank()
-        {
-            Events = new List<EventAreaScript>();
-        }
+			Added?.Invoke(this, eventArea);
+		}
 
-        /// <summary>
-        /// Load existing event area file
-        /// </summary>
-        /// <param name="filename"></param>
-        public void Load(string path, string filename)
-        {
-            Blank();
+		/// <summary>
+		/// Reinitilize child objet
+		/// </summary>
+		public void Blank()
+		{
+			Events = new List<EventAreaScript>();
+		}
 
-            if (!File.Exists(Path.Combine(path, filename)))
-            {
-                XLog.WriteLine(Levels.Warning, $"Missing file {filename}.");
-                return;
-            }
+		/// <summary>
+		/// get buffer final file
+		/// </summary>
+		/// <returns></returns>
+		public byte[] GetBuffer()
+		{
+			try
+			{
+				var stream = new MemoryStream();
 
-            XLog.WriteLine(Levels.Info, $"Loading {filename}...");
-            try
-            {
-                using (BinaryReader b = new BinaryReader(File.Open(Path.Combine(path, filename), FileMode.Open)))
-                {
-                    var areaCount = b.ReadInt32();
+				using (BinaryWriter b = new BinaryWriter(stream))
+				{
+					b.Write(Events.Count);
 
-                    for (int i = 0; i < areaCount; i++)
-                    {
-                        var area = new EventAreaScript();
-                        area.AreaId = b.ReadInt32();
-                        var polygonCount = b.ReadInt32();
+					for (int i = 0; i < Events.Count; i++)
+					{
+						b.Write(Events[i].AreaId);
+						b.Write(Events[i].Polygons.Count);
 
-                        for (int p = 0; p < polygonCount; p++)
-                        {
-                            var polygon = new Polygon2();
-                            var pointNum = b.ReadInt32();
+						for (int p = 0; p < Events[i].Polygons.Count; p++)
+						{
+							b.Write(Events[i].Polygons[p].Points.Count);
 
-                            for (int n = 0; n < pointNum; n++)
-                            {
-                                var point = new K2DVector();
-                                point.X = b.ReadInt32();
-                                point.Y = b.ReadInt32();
-                                polygon.Points.Add(point);
-                            }
+							for (int n = 0; n < Events[i].Polygons[p].Points.Count; n++)
+							{
+								b.Write(Events[i].Polygons[p].Points[n].X);
+								b.Write(Events[i].Polygons[p].Points[n].Y);
+							}
+						}
+					}
+				}
 
-                            area.Polygons.Add(polygon);
-                        }
+				XLog.WriteLine(Levels.Good, "Ok");
+				return stream.ToArray();
+			}
+			catch (Exception exception)
+			{
+				XLog.WriteLine(Levels.Error, "Failed");
+				XLog.WriteLine(Levels.Fatal, "NfeManager::GetBuffer<Exception> -> {0}", exception);
+			}
 
-                        Events.Add(area);
-                    }                    
-                }
-            }
-            catch (Exception exception)
-            {
-                Blank();
-                XLog.WriteLine(Levels.Error, "NfeManager::Load<Exception> -> {0}", exception);
-            }
-        }
+			return null;
+		}
 
-        /// <summary>
-        /// Refresh the current info for painting
-        /// </summary>
-        public void Refresh()
-        {
-            Painting?.Invoke(this, new EventArgs());
-        }
+		/// <summary>
+		/// Load existing event area
+		/// </summary>
+		/// <param name="buffer"></param>
+		public void Load(byte[] buffer)
+		{
+			try
+			{
+				using (BinaryReader b = new BinaryReader(new MemoryStream(buffer)))
+				{
+					var areaCount = b.ReadInt32();
 
-        public void Remove(int index)
-        {
-            Events.RemoveAt(index);
+					for (int i = 0; i < areaCount; i++)
+					{
+						var area = new EventAreaScript();
+						area.AreaId = b.ReadInt32();
+						var polygonCount = b.ReadInt32();
 
-            Removed?.Invoke(this, new EventArgs());
-        }
+						for (int p = 0; p < polygonCount; p++)
+						{
+							var polygon = new Polygon2();
+							var pointNum = b.ReadInt32();
 
-        /// <summary>
-        /// Save event area file
-        /// </summary>
-        /// <param name="directory"></param>
-        /// <param name="filename"></param>
-        public void Save(string directory, string filename)
-        {
-            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+							for (int n = 0; n < pointNum; n++)
+							{
+								var point = new K2DPosition();
+								point.X = b.ReadInt32();
+								point.Y = b.ReadInt32();
+								polygon.Points.Add(point);
+							}
 
-            XLog.WriteLine(Levels.Info, $"Saving {filename}...");
-            try
-            {
-                using (BinaryWriter b = new BinaryWriter(File.Open(Path.Combine(directory, filename), FileMode.Create)))
-                {
-                    b.Write(Events.Count);
+							area.Polygons.Add(polygon);
+						}
 
-                    for (int i = 0; i < Events.Count; i++)
-                    {
-                        b.Write(Events[i].AreaId);
-                        b.Write(Events[i].Polygons.Count);
+						Events.Add(area);
+					}
+				}
 
-                        for (int p = 0; p < Events[i].Polygons.Count; p++)
-                        {
-                            b.Write(Events[i].Polygons[p].Points.Count);
+				XLog.WriteLine(Levels.Good, "Ok");
+			}
+			catch (Exception exception)
+			{
+				Blank();
+				XLog.WriteLine(Levels.Error, "Failed");
+				XLog.WriteLine(Levels.Fatal, "NfeManager::Load<Exception> -> {0}", exception);
+			}
+		}
 
-                            for (int n = 0; n < Events[i].Polygons[p].Points.Count; n++)
-                            {
-                                b.Write(Events[i].Polygons[p].Points[n].X);
-                                b.Write(Events[i].Polygons[p].Points[n].Y);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                XLog.WriteLine(Levels.Error, "NfeManager::Save<Exception> -> {0}", exception);
-            }
-        }
+		/// <summary>
+		/// Refresh the current info for painting
+		/// </summary>
+		public void Refresh()
+		{
+			Painting?.Invoke(this, new EventArgs());
+		}
 
-        /// <summary>
-        /// Get class name to string
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return "nFlavor EventArea";
-        }
-    }
+		/// <summary>
+		/// Remove a region
+		/// </summary>
+		/// <param name="index"></param>
+		public void Remove(int index)
+		{
+			Events.RemoveAt(index);
+
+			Removed?.Invoke(this, new EventArgs());
+		}
+
+		/// <summary>
+		/// Get class name to string
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			return "nFlavor EventArea";
+		}
+	}
 }

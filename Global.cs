@@ -2,6 +2,6 @@
 {
     public class Global
     {
-        public const int titleLenght = 42;
+        public const int tileLenght = 42;
     }
 }

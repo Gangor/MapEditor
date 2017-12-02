@@ -11,6 +11,7 @@
     <AssemblyName>MapEditor</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>logo.ico</ApplicationIcon>
@@ -55,19 +58,37 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
+    <Compile Include="Dialog\About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
+    <Compile Include="Dialog\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="Attributes\PropertyGridBrowserAttribute.cs" />
-    <Compile Include="Extends\PropPropertyConverter.cs" />
+    <Compile Include="Dialog\Import.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\Import.Designer.cs">
+      <DependentUpon>Import.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\Upgrade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\Upgrade.Designer.cs">
+      <DependentUpon>Upgrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\Replace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\Replace.Designer.cs">
+      <DependentUpon>Replace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Attributes\PropPropertyConverter.cs" />
     <Compile Include="Extends\SortableBindingList.cs" />
     <Compile Include="Extends\TabControlExtends.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Extends\TexturePropertyConverter.cs" />
+    <Compile Include="Attributes\TexturePropertyConverter.cs" />
     <Compile Include="Dialog\NewProject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,46 +101,51 @@
     <Compile Include="Dialog\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditorNFM.cs">
+    <Compile Include="Models\PVS\PVS_DATA_V1.cs" />
+    <Compile Include="Models\PVS\PVS_PROP_V1.cs" />
+    <Compile Include="Models\PVS\PVS_SEGMENT_V1.cs" />
+    <Compile Include="Models\PVS\SEGMENT_DATA_V1.cs" />
+    <Compile Include="NFM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditorNFM.Designer.cs">
-      <DependentUpon>EditorNFM.cs</DependentUpon>
+    <Compile Include="NFM.Designer.cs">
+      <DependentUpon>NFM.cs</DependentUpon>
     </Compile>
     <Compile Include="Enum\DrawElement.cs" />
     <Compile Include="Enum\LightType.cs" />
     <Compile Include="Extends\BrowserMenuRenderer.cs" />
     <Compile Include="Extends\CursorExtends.cs" />
     <Compile Include="Enum\DrawMapMode.cs" />
-    <Compile Include="Models\EventAreaScript.cs" />
-    <Compile Include="Models\GrassColony.cs" />
-    <Compile Include="Models\K3DLight.cs" />
-    <Compile Include="Models\KGrass.cs" />
-    <Compile Include="Models\KGrassProp.cs" />
-    <Compile Include="Models\KProp.cs" />
-    <Compile Include="Models\KSegment.cs" />
-    <Compile Include="Models\KTripleColor.cs" />
+    <Compile Include="Models\NFE\EventAreaScript.cs" />
+    <Compile Include="Models\NFM\GrassColony.cs" />
+    <Compile Include="Models\NFM\K3DLight.cs" />
+    <Compile Include="Models\K3DPosition.cs" />
+    <Compile Include="Models\NFM\KGrass.cs" />
+    <Compile Include="Models\NFM\KGrassProp.cs" />
+    <Compile Include="Models\NFM\KProp.cs" />
+    <Compile Include="Models\NFM\KSegment.cs" />
+    <Compile Include="Models\NFM\KTripleColor.cs" />
     <Compile Include="Models\KColor.cs" />
-    <Compile Include="Models\KVertex.cs" />
-    <Compile Include="Models\LocationInfo.cs" />
-    <Compile Include="Models\PropInfo.cs" />
-    <Compile Include="Models\TextureInfo.cs" />
-    <Compile Include="Models\StructLights.cs" />
-    <Compile Include="Models\MapProperties.cs" />
-    <Compile Include="Models\Nfl.cs" />
-    <Compile Include="Models\Nfm.cs" />
-    <Compile Include="Models\Pvs.cs" />
-    <Compile Include="Models\Tile.cs" />
-    <Compile Include="Models\Water.cs" />
+    <Compile Include="Models\NFM\KVertex.cs" />
+    <Compile Include="Models\NFC\LocationInfo.cs" />
+    <Compile Include="Models\CFG\PropInfo.cs" />
+    <Compile Include="Models\CFG\TextureInfo.cs" />
+    <Compile Include="Models\NFL\StructLights.cs" />
+    <Compile Include="Models\NFM\MapProperties.cs" />
+    <Compile Include="Models\NFL\Nfl.cs" />
+    <Compile Include="Models\NFM\Nfm.cs" />
+    <Compile Include="Models\PVS\Pvs.cs" />
+    <Compile Include="Models\NFM\Tile.cs" />
+    <Compile Include="Models\NFW\Water.cs" />
     <Compile Include="Modules\2DUtils.cs" />
     <Compile Include="Modules\CfgManager.cs" />
     <Compile Include="Modules\NfmManager.cs" />
     <Compile Include="Modules\NflManager.cs" />
     <Compile Include="Modules\PvsManager.cs" />
     <Compile Include="Modules\XEnv.cs" />
-    <Compile Include="Models\Template.cs" />
-    <Compile Include="Models\K3DVector.cs" />
-    <Compile Include="Models\Nfp.cs" />
+    <Compile Include="Models\GUI\Template.cs" />
+    <Compile Include="Models\NFL\K3DVector.cs" />
+    <Compile Include="Models\NFP\Nfp.cs" />
     <Compile Include="Models\Polygon3.cs" />
     <Compile Include="Modules\MapManager.cs" />
     <Compile Include="Modules\MapWorker.cs" />
@@ -141,14 +167,14 @@
     <Compile Include="Global.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\K2DVector.cs" />
-    <Compile Include="Models\Nfa.cs" />
-    <Compile Include="Models\Nfc.cs" />
-    <Compile Include="Models\Nfe.cs" />
-    <Compile Include="Models\Nfs.cs" />
-    <Compile Include="Models\Nfw.cs" />
+    <Compile Include="Models\K2DPosition.cs" />
+    <Compile Include="Models\NFA\Nfa.cs" />
+    <Compile Include="Models\NFC\Nfc.cs" />
+    <Compile Include="Models\NFE\Nfe.cs" />
+    <Compile Include="Models\NFS\Nfs.cs" />
+    <Compile Include="Models\NFW\Nfw.cs" />
     <Compile Include="Models\Polygon2.cs" />
-    <Compile Include="Models\Qpf.cs" />
+    <Compile Include="Models\QPF\Qpf.cs" />
     <Compile Include="Modules\XLog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -164,8 +190,36 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
+    <Content Include="Resources\add.png" />
+    <Content Include="Resources\delete.png" />
+    <Content Include="Resources\game.png" />
+    <Content Include="Resources\load.png" />
+    <Content Include="Resources\move.png" />
+    <Content Include="Resources\nfa.png" />
+    <Content Include="Resources\nfc.png" />
+    <Content Include="Resources\nfe.png" />
+    <Content Include="Resources\nfl.png" />
+    <Content Include="Resources\nfp.png" />
+    <Content Include="Resources\nfs01.png" />
+    <Content Include="Resources\nfs02.png" />
+    <Content Include="Resources\nfw.png" />
+    <Content Include="Resources\pencil.png" />
+    <Content Include="Resources\point.gif" />
+    <Content Include="Resources\polygon.png" />
+    <Content Include="Resources\qpf.png" />
+    <Content Include="Resources\rectangle.png" />
+    <Content Include="Resources\refresh.png" />
+    <Content Include="Resources\replace.png" />
+    <Content Include="Resources\segment.png" />
+    <Content Include="Resources\size_increase.png" />
+    <Content Include="Resources\terrain.png" />
+    <Content Include="Resources\tile.png" />
+    <Content Include="Resources\zoom_in.png" />
+    <Content Include="Resources\zoom_normal.png" />
+    <Content Include="Resources\zoom_out.png" />
+    <Content Include="Resources\zoom_restore.png" />
+    <EmbeddedResource Include="Dialog\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cursor\cross.cur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -215,17 +269,26 @@
     <EmbeddedResource Include="Cursor\watch.ani">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\Import.resx">
+      <DependentUpon>Import.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\Upgrade.resx">
+      <DependentUpon>Upgrade.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialog\NewProject.resx">
       <DependentUpon>NewProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialog\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\Replace.resx">
+      <DependentUpon>Replace.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditorNFM.resx">
-      <DependentUpon>EditorNFM.cs</DependentUpon>
+    <EmbeddedResource Include="NFM.resx">
+      <DependentUpon>NFM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -240,6 +303,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="upgrade.log">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -249,6 +315,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Library\DataCore\DataCore.csproj">
+      <Project>{f234efe9-3104-45fc-a5be-fdc3d0cd888e}</Project>
+      <Name>DataCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
