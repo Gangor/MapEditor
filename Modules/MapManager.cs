@@ -200,7 +200,6 @@ namespace MapEditor.Modules
 		{
 			try
 			{
-				var size = graphic.MeasureString(s, font);
 				graphic.DrawString(s, font, brush, x, y);
 			}
 			catch { }
@@ -234,6 +233,17 @@ namespace MapEditor.Modules
 				g.Clear(Color.FromArgb(255, 120, 146, 173));
 				Copy(map);
 			}
+		}
+
+		/// <summary>
+		/// Load the full map
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="name"></param>
+		/// <param name="encoding"></param>
+		public void Load(string path, string name, string encoding)
+		{
+			Load(core:null, path: path, name: name, encoding:encoding, useCore: false);
 		}
 
 		/// <summary>

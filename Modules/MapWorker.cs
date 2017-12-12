@@ -200,45 +200,6 @@ namespace MapEditor.Modules
 		#endregion
 
 		/// <summary>
-		/// Saving all file from data
-		/// </summary>
-		/// <param name="core"></param>
-		/// <param name="folder"></param>
-		public void Export(Core core, string folder)
-		{
-			var filename = $"m{X.ToString("000")}_{Y.ToString("000")}";
-
-			XLog.WriteLine(Levels.Info, "Saving map {0} from DataCore v4...", filename);
-
-			export(core, $"{filename}.nfa", new Func<byte[]>(Nfa.GetBuffer));
-			export(core, $"{filename}.nfc", new Func<byte[]>(Nfc.GetBuffer));
-			export(core, $"{filename}.nfe", new Func<byte[]>(Nfe.GetBuffer));
-			export(core, $"{filename}.nfl", new Func<byte[]>(Nfl.GetBuffer));
-			export(core, $"{filename}.nfm", new Func<byte[]>(Nfm.GetBuffer));
-			export(core, $"{filename}.nfp", new Func<byte[]>(Nfp.GetBuffer));
-			export(core, $"{filename}.nfs", new Func<byte[]>(Nfs.GetBuffer));
-			export(core, $"{filename}.nfw", new Func<byte[]>(Nfw.GetBuffer));
-			export(core, $"{filename}.pvs", new Func<byte[]>(Pvs.GetBuffer));
-			export(core, $"{filename}.qpf", new Func<byte[]>(Qpf.GetBuffer));
-			core.Save(folder);
-
-			XLog.WriteLine(Levels.Info, "Map saving completed.");
-		}
-
-		/// <summary>
-		/// Export file one by one from data
-		/// </summary>
-		/// <param name="core"></param>
-		/// <param name="filename"></param>
-		/// <param name="action"></param>
-		private void export(Core core, string filename, Func<byte[]> action)
-		{
-			XLog.Write(Levels.Info, $"Saving {filename}...\t");
-			
-			core.ImportFileEntry(filename, action());
-		}
-
-		/// <summary>
 		/// Dispose mapping
 		/// </summary>
 		public void Dispose()
@@ -260,15 +221,90 @@ namespace MapEditor.Modules
 		}
 
 		/// <summary>
-		/// Make new project
+		/// Saving all file from data
 		/// </summary>
-		public void New(string folder, string file)
+		/// <param name="core"></param>
+		/// <param name="folder"></param>
+		public void Export(Core core, string folder)
+		{
+			var filename = $"m{X.ToString("000")}_{Y.ToString("000")}";
+
+			XLog.WriteLine(Levels.Info, "Saving map {0} from DataCore v4...", filename);
+
+			Export(core, $"{filename}.nfa", new Func<byte[]>(Nfa.GetBuffer));
+			Export(core, $"{filename}.nfc", new Func<byte[]>(Nfc.GetBuffer));
+			Export(core, $"{filename}.nfe", new Func<byte[]>(Nfe.GetBuffer));
+			Export(core, $"{filename}.nfl", new Func<byte[]>(Nfl.GetBuffer));
+			Export(core, $"{filename}.nfm", new Func<byte[]>(Nfm.GetBuffer));
+			Export(core, $"{filename}.nfp", new Func<byte[]>(Nfp.GetBuffer));
+			Export(core, $"{filename}.nfs", new Func<byte[]>(Nfs.GetBuffer));
+			Export(core, $"{filename}.nfw", new Func<byte[]>(Nfw.GetBuffer));
+			Export(core, $"{filename}.pvs", new Func<byte[]>(Pvs.GetBuffer));
+			Export(core, $"{filename}.qpf", new Func<byte[]>(Qpf.GetBuffer));
+			core.Save(folder);
+
+			XLog.WriteLine(Levels.Info, "Map saving completed.");
+		}
+
+		/// <summary>
+		/// Export file one by one from data
+		/// </summary>
+		/// <param name="core"></param>
+		/// <param name="filename"></param>
+		/// <param name="action"></param>
+		private void Export(Core core, string filename, Func<byte[]> action)
+		{
+			XLog.Write(Levels.Info, $"Saving {filename}...\t");
+
+			core.ImportFileEntry(filename, action());
+		}
+
+		/// <summary>
+		/// Load a existing project map by data
+		/// </summary>
+		/// <param name="core"></param>
+		/// <param name="folder"></param>
+		/// <param name="file"></param>
+		public void Import(Core core, string file, string encoding)
 		{
 			Dispose();
-			resolveName(file);
+			ResolveName(file);
 
-			XLog.WriteLine(Levels.Info, "New project map {0} from path {1}.", file, folder);
-			XLog.WriteLine(Levels.Info, "Map create completed.");
+			XLog.WriteLine(Levels.Info, "Loading map {0} from DataCore v4...", file);
+
+			Import(core, $"terrainpropinfo{encoding}.cfg", new Action<byte[]>(Cfg.LoadProp));
+			Import(core, $"terraintextureinfo{encoding}.cfg", new Action<byte[]>(Cfg.LoadTexture));
+			Import(core, $"{file}{encoding}.nfa", new Action<byte[]>(Nfa.Load));
+			Import(core, $"{file}{encoding}.nfc", new Action<byte[]>(Nfc.Load));
+			Import(core, $"{file}{encoding}.nfe", new Action<byte[]>(Nfe.Load));
+			Import(core, $"{file}{encoding}.nfl", new Action<byte[]>(Nfl.Load));
+			Import(core, $"{file}{encoding}.nfm", new Action<byte[]>(Nfm.Load));
+			Import(core, $"{file}{encoding}.nfp", new Action<byte[]>(Nfp.Load));
+			Import(core, $"{file}{encoding}.nfs", new Action<byte[]>(Nfs.Load));
+			Import(core, $"{file}{encoding}.nfw", new Action<byte[]>(Nfw.Load));
+			Import(core, $"{file}{encoding}.pvs", new Action<byte[]>(Pvs.Load));
+			Import(core, $"{file}{encoding}.qpf", new Action<byte[]>(Qpf.Load));
+
+			XLog.WriteLine(Levels.Info, "Map loading completed.");
+		}
+
+		/// <summary>
+		/// Load file one by one by data
+		/// </summary>
+		/// <param name="core"></param>
+		/// <param name="filename"></param>
+		/// <param name="action"></param>
+		private void Import(Core core, string filename, Action<byte[]> action)
+		{
+			XLog.Write(Levels.Info, $"Loading {filename}...\t");
+
+			if (!core.GetEntryExists(filename))
+			{
+				XLog.WriteLine(Levels.Warning, "Introuvable");
+				return;
+			}
+
+			action(core.GetFileBytes(filename));
 		}
 
 		/// <summary>
@@ -279,21 +315,21 @@ namespace MapEditor.Modules
 		public void Load(string folder, string file, string encoding)
 		{
 			Dispose();
-			resolveName(file);
+			ResolveName(file);
 
 			XLog.WriteLine(Levels.Info, "Loading map {0} from path {1}...", file, folder);
             
 			Cfg.Open(folder + @"\cfg");
-			load(folder + @"\nfa\", $"{file}{encoding}.nfa", new Action<byte[]>(Nfa.Load));
-			load(folder + @"\nfc\", $"{file}{encoding}.nfc", new Action<byte[]>(Nfc.Load));
-			load(folder + @"\nfe\", $"{file}{encoding}.nfe", new Action<byte[]>(Nfe.Load));
-			load(folder + @"\nfl\", $"{file}{encoding}.nfl", new Action<byte[]>(Nfl.Load));
-			load(folder + @"\nfm\", $"{file}{encoding}.nfm", new Action<byte[]>(Nfm.Load));
-			load(folder + @"\nfp\", $"{file}{encoding}.nfp", new Action<byte[]>(Nfp.Load));
-			load(folder + @"\nfs\", $"{file}{encoding}.nfs", new Action<byte[]>(Nfs.Load));
-			load(folder + @"\nfw\", $"{file}{encoding}.nfw", new Action<byte[]>(Nfw.Load));
-			load(folder + @"\pvs\", $"{file}{encoding}.pvs", new Action<byte[]>(Pvs.Load));
-			load(folder + @"\qpf\", $"{file}{encoding}.qpf", new Action<byte[]>(Qpf.Load));
+			Load(folder + @"\nfa\", $"{file}{encoding}.nfa", new Action<byte[]>(Nfa.Load));
+			Load(folder + @"\nfc\", $"{file}{encoding}.nfc", new Action<byte[]>(Nfc.Load));
+			Load(folder + @"\nfe\", $"{file}{encoding}.nfe", new Action<byte[]>(Nfe.Load));
+			Load(folder + @"\nfl\", $"{file}{encoding}.nfl", new Action<byte[]>(Nfl.Load));
+			Load(folder + @"\nfm\", $"{file}{encoding}.nfm", new Action<byte[]>(Nfm.Load));
+			Load(folder + @"\nfp\", $"{file}{encoding}.nfp", new Action<byte[]>(Nfp.Load));
+			Load(folder + @"\nfs\", $"{file}{encoding}.nfs", new Action<byte[]>(Nfs.Load));
+			Load(folder + @"\nfw\", $"{file}{encoding}.nfw", new Action<byte[]>(Nfw.Load));
+			Load(folder + @"\pvs\", $"{file}{encoding}.pvs", new Action<byte[]>(Pvs.Load));
+			Load(folder + @"\qpf\", $"{file}{encoding}.qpf", new Action<byte[]>(Qpf.Load));
 			
 			XLog.WriteLine(Levels.Info, "Map loading completed.");
 		}
@@ -304,7 +340,7 @@ namespace MapEditor.Modules
 		/// <param name="path"></param>
 		/// <param name="filename"></param>
 		/// <param name="action"></param>
-		private void load(string path, string filename, Action<byte[]> action)
+		private void Load(string path, string filename, Action<byte[]> action)
 		{
 			XLog.Write(Levels.Info, $"Loading {filename}...\t");
 
@@ -320,58 +356,22 @@ namespace MapEditor.Modules
 		}
 
 		/// <summary>
-		/// Load a existing project map by data
+		/// Make new project
 		/// </summary>
-		/// <param name="core"></param>
-		/// <param name="folder"></param>
-		/// <param name="file"></param>
-		public void Import(Core core, string file, string encoding)
+		public void New(string folder, string file)
 		{
 			Dispose();
-			resolveName(file);
+			ResolveName(file);
 
-			XLog.WriteLine(Levels.Info, "Loading map {0} from DataCore v4...", file);
-			
-			import(core, $"terrainpropinfo{encoding}.cfg", new Action<byte[]>(Cfg.LoadProp));
-			import(core, $"terraintextureinfo{encoding}.cfg", new Action<byte[]>(Cfg.LoadTexture));
-			import(core, $"{file}{encoding}.nfa", new Action<byte[]>(Nfa.Load));
-			import(core, $"{file}{encoding}.nfc", new Action<byte[]>(Nfc.Load));
-			import(core, $"{file}{encoding}.nfe", new Action<byte[]>(Nfe.Load));
-			import(core, $"{file}{encoding}.nfl", new Action<byte[]>(Nfl.Load));
-			import(core, $"{file}{encoding}.nfm", new Action<byte[]>(Nfm.Load));
-			import(core, $"{file}{encoding}.nfp", new Action<byte[]>(Nfp.Load));
-			import(core, $"{file}{encoding}.nfs", new Action<byte[]>(Nfs.Load));
-			import(core, $"{file}{encoding}.nfw", new Action<byte[]>(Nfw.Load));
-			import(core, $"{file}{encoding}.pvs", new Action<byte[]>(Pvs.Load));
-			import(core, $"{file}{encoding}.qpf", new Action<byte[]>(Qpf.Load));
-			
-			XLog.WriteLine(Levels.Info, "Map loading completed.");
-		}
-
-		/// <summary>
-		/// Load file one by one by data
-		/// </summary>
-		/// <param name="core"></param>
-		/// <param name="filename"></param>
-		/// <param name="action"></param>
-		private void import(Core core, string filename, Action<byte[]> action)
-		{
-			XLog.Write(Levels.Info, $"Loading {filename}...\t");
-
-			if (!core.GetEntryExists(filename))
-			{
-				XLog.WriteLine(Levels.Warning, "Introuvable");
-				return;
-			}
-
-			action(core.GetFileBytes(filename));
+			XLog.WriteLine(Levels.Info, "New project map {0} from path {1}.", file, folder);
+			XLog.WriteLine(Levels.Info, "Map create completed.");
 		}
 
 		/// <summary>
 		/// Resolve current location
 		/// </summary>
 		/// <param name="name"></param>
-		private void resolveName(string name)
+		private void ResolveName(string name)
 		{
 			var match = Regex.Matches(name, "[0-9]+");
 			if (match.Count == 2)
@@ -395,7 +395,7 @@ namespace MapEditor.Modules
 		/// </example>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		public static Tuple<string, string> resolveEncode(string name)
+		public static (string, string) ResolveEncode(string name)
 		{
 			var realname = name;
 			var codepage = string.Empty;
@@ -406,7 +406,7 @@ namespace MapEditor.Modules
 				codepage = match.Groups[1].Value;
 				realname = name.Replace(codepage, string.Empty);
 			}
-			return new Tuple<string,string>(realname, codepage);
+			return (realname, codepage);
 		}
 
 		/// <summary>
@@ -419,16 +419,16 @@ namespace MapEditor.Modules
 
 			XLog.WriteLine(Levels.Info, "Saving map {0} on path {1}...", filename, folder);
 
-			save(folder + @"\nfa\", $"{filename}.nfa", new Func<byte[]>(Nfa.GetBuffer));
-			save(folder + @"\nfc\", $"{filename}.nfc", new Func<byte[]>(Nfc.GetBuffer));
-			save(folder + @"\nfe\", $"{filename}.nfe", new Func<byte[]>(Nfe.GetBuffer));
-			save(folder + @"\nfl\", $"{filename}.nfl", new Func<byte[]>(Nfl.GetBuffer));
-			save(folder + @"\nfm\", $"{filename}.nfm", new Func<byte[]>(Nfm.GetBuffer));
-			save(folder + @"\nfp\", $"{filename}.nfp", new Func<byte[]>(Nfp.GetBuffer));
-			save(folder + @"\nfs\", $"{filename}.nfs", new Func<byte[]>(Nfs.GetBuffer));
-			save(folder + @"\nfw\", $"{filename}.nfw", new Func<byte[]>(Nfw.GetBuffer));
-			save(folder + @"\pvs\", $"{filename}.pvs", new Func<byte[]>(Pvs.GetBuffer));
-			save(folder + @"\qpf\", $"{filename}.qpf", new Func<byte[]>(Qpf.GetBuffer));
+			Save(folder + @"\nfa\", $"{filename}.nfa", new Func<byte[]>(Nfa.GetBuffer));
+			Save(folder + @"\nfc\", $"{filename}.nfc", new Func<byte[]>(Nfc.GetBuffer));
+			Save(folder + @"\nfe\", $"{filename}.nfe", new Func<byte[]>(Nfe.GetBuffer));
+			Save(folder + @"\nfl\", $"{filename}.nfl", new Func<byte[]>(Nfl.GetBuffer));
+			Save(folder + @"\nfm\", $"{filename}.nfm", new Func<byte[]>(Nfm.GetBuffer));
+			Save(folder + @"\nfp\", $"{filename}.nfp", new Func<byte[]>(Nfp.GetBuffer));
+			Save(folder + @"\nfs\", $"{filename}.nfs", new Func<byte[]>(Nfs.GetBuffer));
+			Save(folder + @"\nfw\", $"{filename}.nfw", new Func<byte[]>(Nfw.GetBuffer));
+			Save(folder + @"\pvs\", $"{filename}.pvs", new Func<byte[]>(Pvs.GetBuffer));
+			Save(folder + @"\qpf\", $"{filename}.qpf", new Func<byte[]>(Qpf.GetBuffer));
 
 			XLog.WriteLine(Levels.Info, "Map saving completed.");
 		}
@@ -439,7 +439,7 @@ namespace MapEditor.Modules
 		/// <param name="path"></param>
 		/// <param name="filename"></param>
 		/// <param name="action"></param>
-		private void save(string path, string filename, Func<byte[]> action)
+		private void Save(string path, string filename, Func<byte[]> action)
 		{
 			var fullname = Path.Combine(path, filename);
 

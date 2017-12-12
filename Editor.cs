@@ -84,7 +84,7 @@ namespace MapEditor
 			//
 			// Collection
 			//
-			CollectionEditorExtends.PropertyValueChanged += propertyGrid_PropertyValueChanged;
+			CollectionEditorExtends.PropertyValueChanged += PropertyGrid_PropertyValueChanged;
 			CollectionEditorExtends.OkClick += propertyGrid_Updated;
 			//
 			// Map manager
@@ -197,10 +197,7 @@ namespace MapEditor
 			Text = $"Map Editor - {projectDefault}";
 			projectName = projectDefault;
 
-			Task.Run(() =>
-			{
-				MapWorker.Instance.Dispose();
-			});
+			Task.Run(() => MapWorker.Instance.Dispose());
 		}
 
 		/// <summary>
@@ -244,7 +241,7 @@ namespace MapEditor
 
 					Task.Run(() =>
 					{
-						var resolve = MapWorker.resolveEncode(projectName);
+						var resolve = MapWorker.ResolveEncode(projectName);
 						
 						MapWorker.Instance.Import(core, resolve.Item1, resolve.Item2);
 						MapManager.Instance.Load(core, import.DataDirectory, resolve.Item1, resolve.Item2, true);
@@ -330,10 +327,10 @@ namespace MapEditor
 
 			Task.Run(() =>
 			{
-				var resolve = MapWorker.resolveEncode(filename);
+				var resolve = MapWorker.ResolveEncode(filename);
 				
 				MapWorker.Instance.Load(path, resolve.Item1, resolve.Item2);
-				MapManager.Instance.Load(null, path + @"\jpg\", resolve.Item1, resolve.Item2);
+				MapManager.Instance.Load(path + @"\jpg\", resolve.Item1, resolve.Item2);
 				MapWorker.Instance.Refresh();
 
 				ActionProgressChanged(false);
@@ -409,8 +406,7 @@ namespace MapEditor
 		/// <param name="e"></param>
 		private void Terrain_Click(object sender, EventArgs e)
 		{
-			var form = new NFM(projectName);
-			form.ShowDialog();
+			NFM.ShowDialog(projectName);
 		}
 
 		/// <summary>
@@ -1584,7 +1580,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="s"></param>
 		/// <param name="e"></param>
-		private void propertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+		private void PropertyGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
 		{
 			if (treeView1.SelectedNode != null)
 			{
@@ -1860,140 +1856,9 @@ namespace MapEditor
 		/// <summary>
 		/// Methos used for cancel polygon
 		/// </summary>
-		private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CancelToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			CancelPolygon?.Invoke(sender, e);
-		}
-
-		/// <summary>
-		/// Method used for complet polygon
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void completedToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			switch (currentMode)
-			{
-				case DrawMapMode.POLYGON:
-					DrawPolygon?.Invoke(sender, e);
-					break;
-				default:
-					First = Point.Empty;
-					break;
-			}
-		}
-
-		/// <summary>
-		/// Method used for copy command
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void commandToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Clipboard.Clear();
-			Clipboard.SetData(DataFormats.Text, $"/run warp({Game.X}, {Game.Y})");
-		}
-
-		/// <summary>
-		/// Method used for copy position game
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void gameToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Clipboard.Clear();
-			Clipboard.SetData(DataFormats.Text, $"Game position : {Game.X}, {Game.Y}");
-		}
-
-		/// <summary>
-		/// Method used for copy position map
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void mapToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Clipboard.Clear();
-			Clipboard.SetData(DataFormats.Text, $"Map position : {Map.X}, {Map.Y}");
-		}
-
-		/// <summary>
-		/// Method used for copy position segment
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void segmentToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Clipboard.Clear();
-			Clipboard.SetData(DataFormats.Text, $"Segment : {Segment.X}, {Segment.Y} ({SegmentNumber}");
-		}
-
-		/// <summary>
-		/// Method used for copy position tile
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void tileToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Clipboard.Clear();
-			Clipboard.SetData(DataFormats.Text, $"Tile : {Tile.X}, {Tile.Y} {TileNumber}");
-		}
-
-		/// <summary>
-		/// Method used for remove
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void removeToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			var selectedNode = treeView1.SelectedNode;
-
-			if (selectedNode.Parent.Index == collisionIndex)
-			{
-				Nfa.Instance.Polygons.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == eventAreaIndex)
-			{
-				Nfe.Instance.Events.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == lightIndex)
-			{
-				Nfl.Instance.Lights.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == respawnIndex)
-			{
-				Nfs.Instance.Respawns.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == nfpIndex)
-			{
-				Nfp.Instance.Records.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == npcIndex)
-			{
-				Nfs.Instance.Props.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == pvsSegmentIndex)
-			{
-				Pvs.Instance.Segments.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == pvsPropIndex)
-			{
-				Pvs.Instance.Props.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == gateIndex)
-			{
-				Qpf.Instance.Props.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == waterIndex)
-			{
-				Nfw.Instance.Waters.RemoveAt(selectedNode.Index);
-			}
-			else if (selectedNode.Parent.Index == regionIndex)
-			{
-				Nfc.Instance.Region.RemoveAt(selectedNode.Index);
-			}
-
-			MapWorker.Instance.Refresh(true);
-			treeView1_AfterSelect(this, new TreeViewEventArgs(selectedNode));
 		}
 
 		/// <summary>
@@ -2001,7 +1866,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var selectedNode = treeView1.SelectedNode;
 
@@ -2054,6 +1919,137 @@ namespace MapEditor
 			treeView1_AfterSelect(this, new TreeViewEventArgs(selectedNode));
 		}
 
+		/// <summary>
+		/// Method used for copy command
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void CommandToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Clipboard.Clear();
+			Clipboard.SetData(DataFormats.Text, $"/run warp({Game.X}, {Game.Y})");
+		}
+
+		/// <summary>
+		/// Method used for complet polygon
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void CompletedToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			switch (currentMode)
+			{
+				case DrawMapMode.POLYGON:
+					DrawPolygon?.Invoke(sender, e);
+					break;
+				default:
+					First = Point.Empty;
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Method used for copy position game
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void GameToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Clipboard.Clear();
+			Clipboard.SetData(DataFormats.Text, $"Game position : {Game.X}, {Game.Y}");
+		}
+
+		/// <summary>
+		/// Method used for copy position map
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MapToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Clipboard.Clear();
+			Clipboard.SetData(DataFormats.Text, $"Map position : {Map.X}, {Map.Y}");
+		}
+
+		/// <summary>
+		/// Method used for remove
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RemoveToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var selectedNode = treeView1.SelectedNode;
+
+			if (selectedNode.Parent.Index == collisionIndex)
+			{
+				MapWorker.Instance.Nfa.Remove(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == eventAreaIndex)
+			{
+				MapWorker.Instance.Nfe.Remove(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == lightIndex)
+			{
+				MapWorker.Instance.Nfl.Remove(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == respawnIndex)
+			{
+				MapWorker.Instance.Nfs.RemoveR(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == nfpIndex)
+			{
+				MapWorker.Instance.Nfp.Remove(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == npcIndex)
+			{
+				MapWorker.Instance.Nfs.RemoveP(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == pvsSegmentIndex)
+			{
+				MapWorker.Instance.Pvs.RemoveS(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == pvsPropIndex)
+			{
+				MapWorker.Instance.Pvs.RemoveP(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == gateIndex)
+			{
+				MapWorker.Instance.Qpf.Remove(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == waterIndex)
+			{
+				MapWorker.Instance.Nfw.Remove(selectedNode.Index);
+			}
+			else if (selectedNode.Parent.Index == regionIndex)
+			{
+				MapWorker.Instance.Nfc.Remove(selectedNode.Index);
+			}
+
+			MapWorker.Instance.Refresh(true);
+			treeView1_AfterSelect(this, new TreeViewEventArgs(selectedNode));
+		}
+
+		/// <summary>
+		/// Method used for copy position segment
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void SegmentToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Clipboard.Clear();
+			Clipboard.SetData(DataFormats.Text, $"Segment : {Segment.X}, {Segment.Y} ({SegmentNumber}");
+		}
+
+		/// <summary>
+		/// Method used for copy position tile
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void TileToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Clipboard.Clear();
+			Clipboard.SetData(DataFormats.Text, $"Tile : {Tile.X}, {Tile.Y} {TileNumber}");
+		}
+
 		#endregion
 
 		/// <summary>
@@ -2072,7 +2068,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void button1_Click(object sender, EventArgs e)
+		private void Button_Click(object sender, EventArgs e)
 		{
 			if (splitContainer4.Panel2Collapsed)
 			{
@@ -2139,7 +2135,7 @@ namespace MapEditor
 		/// <summary>
 		/// Clear all log
 		/// </summary>
-		public void ClearLog()
+		private void ClearLog()
 		{
 			if (!LogRtb.InvokeRequired)
 			{
@@ -2162,7 +2158,7 @@ namespace MapEditor
 		/// <summary>
 		/// Refresh state log 
 		/// </summary>
-		public void RefreshLog()
+		private void RefreshLog()
 		{
 			lbError.Text = $"{errorCount} Error(s)";
 			lbWarning.Text = $"{warningCount} Warning(s)";

@@ -212,7 +212,7 @@
 			this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
 			this.cancelToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.cancelToolStripMenuItem.Text = "Cancel";
-			this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
+			this.cancelToolStripMenuItem.Click += new System.EventHandler(this.CancelToolStripMenuItem_Click);
 			// 
 			// completedToolStripMenuItem
 			// 
@@ -222,7 +222,7 @@
 			this.completedToolStripMenuItem.Name = "completedToolStripMenuItem";
 			this.completedToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
 			this.completedToolStripMenuItem.Text = "Completed";
-			this.completedToolStripMenuItem.Click += new System.EventHandler(this.completedToolStripMenuItem_Click);
+			this.completedToolStripMenuItem.Click += new System.EventHandler(this.CompletedToolStripMenuItem_Click);
 			// 
 			// copyToolStripMenuItem1
 			// 
@@ -246,7 +246,7 @@
 			this.commandToolStripMenuItem.Name = "commandToolStripMenuItem";
 			this.commandToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.commandToolStripMenuItem.Text = "Command";
-			this.commandToolStripMenuItem.Click += new System.EventHandler(this.commandToolStripMenuItem_Click);
+			this.commandToolStripMenuItem.Click += new System.EventHandler(this.CommandToolStripMenuItem_Click);
 			// 
 			// gameToolStripMenuItem
 			// 
@@ -255,7 +255,7 @@
 			this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
 			this.gameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.gameToolStripMenuItem.Text = "Game";
-			this.gameToolStripMenuItem.Click += new System.EventHandler(this.gameToolStripMenuItem_Click);
+			this.gameToolStripMenuItem.Click += new System.EventHandler(this.GameToolStripMenuItem_Click);
 			// 
 			// mapToolStripMenuItem
 			// 
@@ -264,7 +264,7 @@
 			this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
 			this.mapToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.mapToolStripMenuItem.Text = "Map";
-			this.mapToolStripMenuItem.Click += new System.EventHandler(this.mapToolStripMenuItem_Click);
+			this.mapToolStripMenuItem.Click += new System.EventHandler(this.MapToolStripMenuItem_Click);
 			// 
 			// segmentToolStripMenuItem
 			// 
@@ -273,7 +273,7 @@
 			this.segmentToolStripMenuItem.Name = "segmentToolStripMenuItem";
 			this.segmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.segmentToolStripMenuItem.Text = "Segment";
-			this.segmentToolStripMenuItem.Click += new System.EventHandler(this.segmentToolStripMenuItem_Click);
+			this.segmentToolStripMenuItem.Click += new System.EventHandler(this.SegmentToolStripMenuItem_Click);
 			// 
 			// tileToolStripMenuItem
 			// 
@@ -282,7 +282,7 @@
 			this.tileToolStripMenuItem.Name = "tileToolStripMenuItem";
 			this.tileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.tileToolStripMenuItem.Text = "Tile";
-			this.tileToolStripMenuItem.Click += new System.EventHandler(this.tileToolStripMenuItem_Click);
+			this.tileToolStripMenuItem.Click += new System.EventHandler(this.TileToolStripMenuItem_Click);
 			// 
 			// splitContainer2
 			// 
@@ -353,7 +353,7 @@
 			this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
 			this.clearToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
 			this.clearToolStripMenuItem.Text = "Clear";
-			this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+			this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
 			// 
 			// removeToolStripMenuItem
 			// 
@@ -362,7 +362,7 @@
 			this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
 			this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
 			this.removeToolStripMenuItem.Text = "Remove";
-			this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+			this.removeToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
 			// 
 			// labelProperty
 			// 
@@ -401,7 +401,7 @@
 			this.propertyGrid.ViewBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
 			this.propertyGrid.ViewForeColor = System.Drawing.Color.White;
 			this.propertyGrid.Visible = false;
-			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid_PropertyValueChanged);
+			this.propertyGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.PropertyGrid_PropertyValueChanged);
 			this.propertyGrid.SelectedObjectsChanged += new System.EventHandler(this.propertyGrid_SelectedObjectsChanged);
 			// 
 			// menuStrip1
@@ -1106,7 +1106,7 @@
 			this.button1.TabIndex = 0;
 			this.button1.Text = "Console";
 			this.button1.UseVisualStyleBackColor = false;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.button1.Click += new System.EventHandler(this.Button_Click);
 			// 
 			// LogRtb
 			// 

@@ -253,12 +253,23 @@ namespace MapEditor.Modules
 		}
 
 		/// <summary>
-		/// Remove nflavor script
+		/// Remove respawn nflavor script
 		/// </summary>
 		/// <param name="index"></param>
-		public void Remove(int index)
+		public void RemoveR(int index)
 		{
 			Respawns.RemoveAt(index);
+
+			Removed?.Invoke(this, new EventArgs());
+		}
+
+		/// <summary>
+		/// Remove prop nflavor script
+		/// </summary>
+		/// <param name="index"></param>
+		public void RemoveP(int index)
+		{
+			Props.RemoveAt(index);
 
 			Removed?.Invoke(this, new EventArgs());
 		}

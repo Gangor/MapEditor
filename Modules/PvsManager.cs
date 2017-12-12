@@ -179,6 +179,24 @@ namespace MapEditor.Modules
 		}
 
 		/// <summary>
+		/// Remove entry by index
+		/// </summary>
+		/// <param name="index"></param>
+		public void RemoveP(int index)
+		{
+			Props.RemoveAt(index);
+		}
+
+		/// <summary>
+		/// Remove entry by index
+		/// </summary>
+		/// <param name="index"></param>
+		public void RemoveS(int index)
+		{
+			Segments.RemoveAt(index);
+		}
+
+		/// <summary>
 		/// Get class name to string
 		/// </summary>
 		/// <returns></returns>

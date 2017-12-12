@@ -32,7 +32,7 @@ namespace MapEditor
 		/// Initialize a new instance
 		/// </summary>
 		/// <param name="manager"></param>
-		public NFM(string title)
+		private NFM(string title)
 		{
 			manager = MapWorker.Instance.Nfm;
 			cache = (Bitmap)MapManager.Instance.Map.Clone();
@@ -84,6 +84,15 @@ namespace MapEditor
 			// Property
 			//
 			propertyGrid1.BrowsableAttributes = new AttributeCollection(new PropertyGridBrowsableAttribute(true));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public static void ShowDialog(string title)
+		{
+			var dialog = new NFM(title);
+			dialog.ShowDialog();
 		}
 
 		#endregion
