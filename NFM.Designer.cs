@@ -56,17 +56,17 @@
 			this.tileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.commandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.zoomToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.segmentToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.lbSegmentCoordinate = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.tileToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.lbTileCoodinate = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.coordonateToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.lbMapCoordinate = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.gameToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.lbGameCoordinate = new System.Windows.Forms.ToolStripStatusLabel();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.tabControl = new MapEditor.Extends.TabControlExtends();
 			this.propTab = new System.Windows.Forms.TabPage();
@@ -105,7 +105,7 @@
 			this.toolStripContainer1.LeftToolStripPanel.SuspendLayout();
 			this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
 			this.toolStripContainer1.SuspendLayout();
-			this.statusStrip1.SuspendLayout();
+			this.statusStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -238,7 +238,7 @@
 			// toolStripContainer1.BottomToolStripPanel
 			// 
 			this.toolStripContainer1.BottomToolStripPanel.BackColor = System.Drawing.Color.Transparent;
-			this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.statusStrip1);
+			this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.statusStrip);
 			// 
 			// toolStripContainer1.ContentPanel
 			// 
@@ -264,24 +264,24 @@
 			// 
 			// statusStrip1
 			// 
-			this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
-			this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
-			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.statusStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+			this.statusStrip.Dock = System.Windows.Forms.DockStyle.None;
+			this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel3,
             this.zoomToolStripStatusLabel,
             this.toolStripStatusLabel6,
-            this.segmentToolStripStatusLabel,
+            this.lbSegmentCoordinate,
             this.toolStripStatusLabel5,
-            this.tileToolStripStatusLabel,
+            this.lbTileCoodinate,
             this.toolStripStatusLabel1,
-            this.coordonateToolStripStatusLabel,
+            this.lbMapCoordinate,
             this.toolStripStatusLabel2,
-            this.gameToolStripStatusLabel});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.statusStrip1.Size = new System.Drawing.Size(972, 22);
-			this.statusStrip1.TabIndex = 0;
+            this.lbGameCoordinate});
+			this.statusStrip.Location = new System.Drawing.Point(0, 0);
+			this.statusStrip.Name = "statusStrip1";
+			this.statusStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+			this.statusStrip.Size = new System.Drawing.Size(972, 22);
+			this.statusStrip.TabIndex = 0;
 			// 
 			// toolStripStatusLabel3
 			// 
@@ -306,11 +306,11 @@
 			// 
 			// segmentToolStripStatusLabel
 			// 
-			this.segmentToolStripStatusLabel.AutoSize = false;
-			this.segmentToolStripStatusLabel.ForeColor = System.Drawing.Color.White;
-			this.segmentToolStripStatusLabel.Name = "segmentToolStripStatusLabel";
-			this.segmentToolStripStatusLabel.Size = new System.Drawing.Size(100, 17);
-			this.segmentToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.lbSegmentCoordinate.AutoSize = false;
+			this.lbSegmentCoordinate.ForeColor = System.Drawing.Color.White;
+			this.lbSegmentCoordinate.Name = "segmentToolStripStatusLabel";
+			this.lbSegmentCoordinate.Size = new System.Drawing.Size(100, 17);
+			this.lbSegmentCoordinate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// toolStripStatusLabel5
 			// 
@@ -320,11 +320,11 @@
 			// 
 			// tileToolStripStatusLabel
 			// 
-			this.tileToolStripStatusLabel.AutoSize = false;
-			this.tileToolStripStatusLabel.ForeColor = System.Drawing.Color.White;
-			this.tileToolStripStatusLabel.Name = "tileToolStripStatusLabel";
-			this.tileToolStripStatusLabel.Size = new System.Drawing.Size(100, 17);
-			this.tileToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.lbTileCoodinate.AutoSize = false;
+			this.lbTileCoodinate.ForeColor = System.Drawing.Color.White;
+			this.lbTileCoodinate.Name = "tileToolStripStatusLabel";
+			this.lbTileCoodinate.Size = new System.Drawing.Size(100, 17);
+			this.lbTileCoodinate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// toolStripStatusLabel1
 			// 
@@ -334,11 +334,11 @@
 			// 
 			// coordonateToolStripStatusLabel
 			// 
-			this.coordonateToolStripStatusLabel.AutoSize = false;
-			this.coordonateToolStripStatusLabel.ForeColor = System.Drawing.Color.White;
-			this.coordonateToolStripStatusLabel.Name = "coordonateToolStripStatusLabel";
-			this.coordonateToolStripStatusLabel.Size = new System.Drawing.Size(100, 17);
-			this.coordonateToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.lbMapCoordinate.AutoSize = false;
+			this.lbMapCoordinate.ForeColor = System.Drawing.Color.White;
+			this.lbMapCoordinate.Name = "coordonateToolStripStatusLabel";
+			this.lbMapCoordinate.Size = new System.Drawing.Size(100, 17);
+			this.lbMapCoordinate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// toolStripStatusLabel2
 			// 
@@ -348,11 +348,11 @@
 			// 
 			// gameToolStripStatusLabel
 			// 
-			this.gameToolStripStatusLabel.AutoSize = false;
-			this.gameToolStripStatusLabel.ForeColor = System.Drawing.Color.White;
-			this.gameToolStripStatusLabel.Name = "gameToolStripStatusLabel";
-			this.gameToolStripStatusLabel.Size = new System.Drawing.Size(100, 17);
-			this.gameToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.lbGameCoordinate.AutoSize = false;
+			this.lbGameCoordinate.ForeColor = System.Drawing.Color.White;
+			this.lbGameCoordinate.Name = "gameToolStripStatusLabel";
+			this.lbGameCoordinate.Size = new System.Drawing.Size(100, 17);
+			this.lbGameCoordinate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// splitContainer1
 			// 
@@ -622,10 +622,10 @@
 			this.mapPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.mapPictureBox.TabIndex = 3;
 			this.mapPictureBox.TabStop = false;
-			this.mapPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mapPictureBox_MouseDown);
-			this.mapPictureBox.MouseLeave += new System.EventHandler(this.mapPictureBox_MouseLeave);
-			this.mapPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mapPictureBox_MouseMove);
-			this.mapPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mapPictureBox_MouseUp);
+			this.mapPictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MapPictureBox_MouseDown);
+			this.mapPictureBox.MouseLeave += new System.EventHandler(this.MapPictureBox_MouseLeave);
+			this.mapPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapPictureBox_MouseMove);
+			this.mapPictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MapPictureBox_MouseUp);
 			// 
 			// splitContainer2
 			// 
@@ -681,8 +681,8 @@
 			this.minimapPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.minimapPictureBox.TabIndex = 7;
 			this.minimapPictureBox.TabStop = false;
-			this.minimapPictureBox.MouseLeave += new System.EventHandler(this.mapPictureBox_MouseLeave);
-			this.minimapPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.minimapPictureBox_MouseMove);
+			this.minimapPictureBox.MouseLeave += new System.EventHandler(this.MapPictureBox_MouseLeave);
+			this.minimapPictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MinimapPictureBox_MouseMove);
 			// 
 			// minimapZoomLessButton
 			// 
@@ -794,7 +794,7 @@
 			this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
 			this.toolStripMenuItem1.Size = new System.Drawing.Size(28, 25);
-			this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+			this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
 			// 
 			// toolStripTextBox1
 			// 
@@ -807,7 +807,7 @@
 			this.toolStripTextBox1.Name = "toolStripTextBox1";
 			this.toolStripTextBox1.Size = new System.Drawing.Size(150, 23);
 			this.toolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.toolStripTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox1_KeyDown);
+			this.toolStripTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ToolStripTextBox1_KeyDown);
 			// 
 			// toolStripComboBox1
 			// 
@@ -873,7 +873,7 @@
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
 			this.toolStripMenuItem2.Size = new System.Drawing.Size(28, 26);
 			this.toolStripMenuItem2.ToolTipText = "Replace texture";
-			this.toolStripMenuItem2.Click += new System.EventHandler(this.replace_Click);
+			this.toolStripMenuItem2.Click += new System.EventHandler(this.Replace_Click);
 			// 
 			// EditorNFM
 			// 
@@ -896,8 +896,8 @@
 			this.toolStripContainer1.TopToolStripPanel.PerformLayout();
 			this.toolStripContainer1.ResumeLayout(false);
 			this.toolStripContainer1.PerformLayout();
-			this.statusStrip1.ResumeLayout(false);
-			this.statusStrip1.PerformLayout();
+			this.statusStrip.ResumeLayout(false);
+			this.statusStrip.PerformLayout();
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -945,21 +945,21 @@
         private System.Windows.Forms.TabPage speedGrassTab;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.PictureBox mapPictureBox;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel zoomToolStripStatusLabel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem segmentModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tileModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moveModeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripStatusLabel segmentToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel lbSegmentCoordinate;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel coordonateToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel lbMapCoordinate;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel gameToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel lbGameCoordinate;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
-        private System.Windows.Forms.ToolStripStatusLabel tileToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel lbTileCoodinate;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem propToolStripMenuItem;

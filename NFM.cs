@@ -78,8 +78,8 @@ namespace MapEditor
 			// Minimap
 			//
 			minimapPictureBox.Cursor = CursorExtends.LeftPtrWatch;
-			PointerChanged += minimapPicture_PointerChanged;
-			PointerRemoved += minimapPicture_PointerRemoved;
+			PointerChanged += MinimapPicture_PointerChanged;
+			PointerRemoved += MinimapPicture_PointerRemoved;
 			//
 			// Property
 			//
@@ -312,7 +312,7 @@ namespace MapEditor
 			minimapZoomLessButton.Enabled = minimapZoom != zoomMin ? true : false;
 			minimapZoomPlusButton.Enabled = minimapZoom != zoomMax ? true : false;
 
-			minimapPicture_PointerChanged(this, new EventArgs());
+			MinimapPicture_PointerChanged(this, new EventArgs());
 		}
 
 		#endregion
@@ -386,7 +386,7 @@ namespace MapEditor
 			zoomRestoreToolStripMenuItem.Enabled = zoom != zoomNormal ? true : false;
 
 			zoomToolStripStatusLabel.Text = $"x{zoom}";
-			statusStrip1.Refresh();
+			statusStrip.Refresh();
 		}
 
 		#endregion
@@ -598,7 +598,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="segmentX"></param>
 		/// <param name="segmentY"></param>
-		private void mapPicturedBox_SelectedSegment(int index, Point segment)
+		private void mapPicturedBox_SelectedSegment(int index, System.Drawing.Point segment)
 		{
 			var nX1 = (segment.X) * Global.tileLenght * 6 / 7.875f;
 			var nY1 = (segment.Y) * Global.tileLenght * 6 / 7.875f;
@@ -638,7 +638,7 @@ namespace MapEditor
 		/// <param name="segmentY"></param>
 		/// <param name="tileX"></param>
 		/// <param name="tileY"></param>
-		private void mapPicturedBox_SelectedTile(int index , Point segment, Point tile)
+		private void mapPicturedBox_SelectedTile(int index , System.Drawing.Point segment, System.Drawing.Point tile)
 		{
 			var nX1 = ((segment.X * Global.tileLenght * 6 / 7.875f) + ((tile.X * Global.tileLenght / 7.875f)));
 			var nY1 = ((segment.Y * Global.tileLenght * 6 / 7.875f) + ((tile.Y * Global.tileLenght / 7.875f)));
@@ -682,7 +682,7 @@ namespace MapEditor
 		/// <summary>
 		/// Stock the selection of objet
 		/// </summary>
-		private List<Point> Segments = new List<Point>();
+		private List<Point> Segments = new List<System.Drawing.Point>();
 		private List<Tile> Tiles = new List<Tile>();
 
 		/// <summary>
@@ -690,9 +690,9 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void mapPictureBox_MouseDown(object sender, MouseEventArgs e)
+		private void MapPictureBox_MouseDown(object sender, MouseEventArgs e)
 		{
-			mapPictureBox_MouseMove(sender, e);
+			MapPictureBox_MouseMove(sender, e);
 
 			if (e.Button == MouseButtons.Left)
 			{
@@ -708,57 +708,68 @@ namespace MapEditor
 
 						RestoreSegment();
 
+						#region Control
+
 						if ((ModifierKeys & Keys.Control) != Keys.Control && (ModifierKeys & Keys.Shift) != Keys.Shift)
 						{
 							Segments.Clear();
 						}
+
+						#endregion
+
+						#region Shift
 
 						if ((ModifierKeys & Keys.Shift) == Keys.Shift)
 						{
 							if (Segments.Any())
 							{
 								var last = Segments.Last();
-								var lessSegment = last.Y < Segment.Y || last.Y == Segment.Y && last.X < Segment.X ? Segments.Last() : Segment;
-								var largeSegment = last.Y > Segment.Y || last.Y == Segment.Y && last.X > Segment.X ? Segments.Last() : Segment;
-								var tempX = lessSegment.X;
+								var lessSegment = last.Y <= Segment.Y && last.X < Segment.X ? last : Segment;
+								var largeSegment = last.Y >= Segment.Y && last.X > Segment.X ? last : Segment;
 
+								// Cursor coordonate
+								var cursorX = lessSegment.X;
+								var cursorY = lessSegment.Y;
 
-								for (var y = lessSegment.Y; y < 64; y++)
+								// Max coordonate
+								var maxX = largeSegment.X;
+								var maxY = largeSegment.Y;
+
+								// increment/decrement coordonate
+								if (last.Y <= Segment.Y && last.X < Segment.X) { cursorX++; }
+								else if (last.Y >= Segment.Y && last.X > Segment.X) { maxX--; }
+
+								for (var y = cursorY; y < 64; y++)
 								{
-									for (var x = tempX; x < 64; x++)
+									cursorY = y;
+
+									for (var x = cursorX; x < 64; x++)
 									{
+										cursorX = x;
+
 										var info = new Point(x, y);
-
-										tempX = x;
-
 										if (!Segments.Any(r => r == info))
-										{
 											Segments.Add(info);
-										}
 										else
-										{
 											Segments.Remove(info);
-										}
 
-										if (tempX == largeSegment.X && y == largeSegment.Y) break;
+										if (cursorX == maxX && cursorY == maxY) break;
 									}
 
-									if (tempX == largeSegment.X && y == largeSegment.Y) break;
-									if (tempX == 63) tempX = 0;
+									if (cursorX == maxX && cursorY == maxY) break;
+									if (cursorX == 63) cursorX = 0;
 								}
 							}
 						}
 						else
 						{
 							if (!Segments.Any(r => r == Segment))
-							{
 								Segments.Add(Segment);
-							}
 							else
-							{
 								Segments.Remove(Segment);
-							}
 						}
+
+						#endregion
 
 						var kSegment = new KSegment[Segments.Count];
 						for (int i = 0; i < Segments.Count; i++)
@@ -774,13 +785,20 @@ namespace MapEditor
 					case Mode.TILE:
 
 						if (Segment.X > 63 || Segment.Y > 63) return;
+						if (Tile.X > 5 || Tile.Y > 5) return;
 
 						RestoreTile();
+
+						#region Control
 
 						if ((ModifierKeys & Keys.Control) != Keys.Control && (ModifierKeys & Keys.Shift) != Keys.Shift)
 						{
 							Tiles.Clear();
 						}
+
+						#endregion
+
+						#region Shift
 
 						if ((ModifierKeys & Keys.Shift) == Keys.Shift)
 						{
@@ -788,76 +806,66 @@ namespace MapEditor
 							{
 								var lastSegment = Tiles.Last().segment;
 								var lastTile = Tiles.Last().tile;
-								var lessSegment = new Point();
-								var largeSegment = new Point();
-								var lessTile = new Point();
-								var largeTile = new Point();
+								//
+								var segmentNumber = (lastSegment.Y * 64) + lastSegment.X;
+								var tileNumber = (lastTile.Y * 6) + lastTile.X;
+								//
+								var lessSegment = segmentNumber < SegmentNumber || (segmentNumber == SegmentNumber && tileNumber < TileNumber) ? lastSegment : Segment;
+								var largeSegment = segmentNumber > SegmentNumber || (segmentNumber == SegmentNumber && tileNumber > TileNumber) ? lastSegment : Segment;
+								var lessTile = segmentNumber < SegmentNumber || (segmentNumber == SegmentNumber && tileNumber < TileNumber) ? lastTile : Tile;
+								var largeTile = segmentNumber > SegmentNumber || (segmentNumber == SegmentNumber && tileNumber > TileNumber) ? lastTile : Tile;
 
-								var lastTotalNumber = (lastSegment.X * 6) + lastTile.X * (lastSegment.Y * 6) + lastTile.Y;
-								var totalNumber = (Segment.X * 6) + Tile.X * (Segment.Y * 6) + Tile.Y;
+								// Cursor coordonate
+								var cursorX = (lessSegment.X * 6) + lessTile.X;
+								var cursorY = (lessSegment.Y * 6) + lessTile.Y;
 
-								if (lastTotalNumber < totalNumber)
-								{
-									lessSegment = lastSegment;
-									largeSegment = Segment;
-									lessTile = lastTile;
-									largeTile = Tile;
-								}
-								else
-								{
-									lessSegment = Segment;
-									largeSegment = lastSegment;
-									lessTile = Tile;
-									largeTile = lastTile;
-								}
-
-								var tempX = (lessSegment.X * 6) + lessTile.X;
-								var tempY = (lessSegment.Y * 6) + lessTile.Y;
+								// Max tile coordonate
 								var maxX = (largeSegment.X * 6) + largeTile.X;
 								var maxY = (largeSegment.Y * 6) + largeTile.Y;
 
-								for (int y = tempY; y < 384; y++)
+								// increment/decrement coordonate
+								if (segmentNumber < SegmentNumber || (segmentNumber == SegmentNumber && tileNumber < TileNumber)) { cursorX++; }
+								else if (segmentNumber > SegmentNumber || (segmentNumber == SegmentNumber && tileNumber > TileNumber)) { maxX--; }
+
+								for (int y = cursorY; y < 384; y++)
 								{
-									for (int x = tempX; x < 384; x++)
+									cursorY = y;
+
+									for (int x = cursorX; x < 384; x++)
 									{
+										cursorX = x;
+
 										var info = new Tile()
 										{
-											segment = new Point(x / 6, y / 6),
-											tile = new Point(x % 6, y % 6)
+											segment = new Point(cursorX / 6, cursorY / 6),
+											tile = new Point(cursorX % 6, cursorY % 6)
 										};
 
-										tempX = x;
-
-										if (!Tiles.Any(r => r.segment == Segment && r.tile == Tile))
-										{
+										var tile = Tiles.SingleOrDefault(r => r.segment == info.segment && r.tile == info.tile);
+										if (tile == null)
 											Tiles.Add(info);
-										}
 										else
-										{
-											Tiles.Remove(info);
-										}
+											Tiles.Remove(tile);
 
-										if (x >= maxX && y >= maxY) break;
+										if (cursorX == maxX && cursorY == maxY) break;
 									}
 									
-									if (tempX >= maxX && y >= maxY) break;
-									if (tempX == 383) tempX = 0;
+									if (cursorX == maxX && cursorY == maxY) break;
+									if (cursorX == 383) cursorX = 0;
 								}
 							}
 						}
 						else
 						{
-
 							var info = new Tile() { segment = Segment, tile = Tile };
-							if (!Tiles.Any(r => r.segment == Segment && r.tile == Tile))
-							{
+							var tile = Tiles.SingleOrDefault(r => r.segment == Segment && r.tile == Tile);
+							if (tile == null)
 								Tiles.Add(info);
-							}
 							else
-							{
-								Tiles.Remove(info);
-							}
+								Tiles.Remove(tile);
 						}
+
+						#endregion
 
 						var kVectex = new KVertex[Tiles.Count];
 						for (int i = 0; i < Tiles.Count; i++)
@@ -880,22 +888,43 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void mapPictureBox_MouseMove(object sender, MouseEventArgs e)
-		{            
-			var rotate180FlipY = _2DUtils.GetPointRotate180FlipY(new PointF((e.Location.X / zoom), (e.Location.Y / zoom)));
+		private void MapPictureBox_MouseMove(object sender, MouseEventArgs e)
+		{
+			Map = _2DUtils.AdjustPoint(e.Location, zoom, false, false);
 
-			// Coordonate
-			Map = new Point((int)Math.Ceiling(rotate180FlipY.X * 7.875), (int)Math.Ceiling(rotate180FlipY.Y * 7.875));
-			Game = new Point((Map.X + (MapWorker.Instance.X * 16128)), (Map.Y + (MapWorker.Instance.Y * 16128)));
-			Segment = new Point((Map.X / Global.tileLenght / 6), (Map.Y / Global.tileLenght / 6));
-			Tile = new Point((Map.X / Global.tileLenght - (6 * Segment.X)), (Map.Y / Global.tileLenght - (6 * Segment.Y)));
-            
+			//
+			// Game point
+			//
+			var mapX = Map.X + MapWorker.Instance.X * 16128;
+			var mapY = Map.Y + MapWorker.Instance.Y * 16128;
+
+			Game = new Point(mapX, mapY);
+
+			//
+			// Segment point
+			//
+			var segmentX = Math.Min(Map.X / Global.tileLenght / 6, 63);
+			var segmentY = Math.Min(Map.Y / Global.tileLenght / 6, 63);
+
+			Segment = new Point(segmentX, segmentY);
+			SegmentNumber = Segment.X + Segment.Y * 64;
+
+			//
+			// Tile point
+			//
+			var tileX = Math.Min(Map.X / Global.tileLenght - 6 * Segment.X, 5);
+			var tileY = Math.Min(Map.Y / Global.tileLenght - 6 * Segment.Y, 5);
+
+			Tile = new Point(tileX, tileY);
+			TileNumber = Tile.X + Tile.Y * 6;
+
+			//
 			// Segment location
-			SegmentF = new PointF((rotate180FlipY.X * 7.875f - (Segment.X * 42 * 6)), (rotate180FlipY.Y * 7.875f - (Segment.Y * 42 * 6)));
+			//
+			var segmentFX = Map.X - Segment.X * 42 * 6;
+			var segmentFY = Map.Y - Segment.Y * 42 * 6;
 
-			// Number
-			SegmentNumber = ((Segment.X) + ((Segment.Y) * 64));
-			TileNumber = ((Tile.X) + ((Tile.Y) * 6));
+			SegmentF = new PointF(segmentFX, segmentFY);
 
 			if (CurrentMode == Mode.MOVE && !First.IsEmpty)
 			{
@@ -906,12 +935,12 @@ namespace MapEditor
 				mapPictureBox.Refresh();
 			}
 
-			coordonateToolStripStatusLabel.Text = $"{Map.X}, {Map.Y}";
-			gameToolStripStatusLabel.Text = $"{Game.X}, {Game.Y}";
-			segmentToolStripStatusLabel.Text = $"{Segment.X}, {Segment.Y} ({SegmentNumber})";
-			tileToolStripStatusLabel.Text = $"{Tile.X}, {Tile.Y} ({TileNumber})";
+			lbMapCoordinate.Text = $"{Map.X}, {Map.Y}";
+			lbGameCoordinate.Text = $"{Game.X}, {Game.Y}";
+			lbSegmentCoordinate.Text = $"{Segment.X}, {Segment.Y} ({SegmentNumber})";
+			lbTileCoodinate.Text = $"{Tile.X}, {Tile.Y} ({TileNumber})";
 
-			statusStrip1.Refresh();
+			statusStrip.Refresh();
 		}
 
 		/// <summary>
@@ -919,7 +948,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void mapPictureBox_MouseUp(object sender, MouseEventArgs e)
+		private void MapPictureBox_MouseUp(object sender, MouseEventArgs e)
 		{
 			First = Point.Empty;
 		}
@@ -929,12 +958,12 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void mapPictureBox_MouseLeave(object sender, EventArgs e)
+		private void MapPictureBox_MouseLeave(object sender, EventArgs e)
 		{
-			coordonateToolStripStatusLabel.Text = "";
-			gameToolStripStatusLabel.Text = "";
-			segmentToolStripStatusLabel.Text = "";
-			tileToolStripStatusLabel.Text = "";
+			lbMapCoordinate.Text = "";
+			lbGameCoordinate.Text = "";
+			lbSegmentCoordinate.Text = "";
+			lbTileCoodinate.Text = "";
 		}
 
 		#endregion
@@ -986,7 +1015,7 @@ namespace MapEditor
 		/// <param name="mode"></param>
 		private void setCurrentMode(Mode mode)
 		{
-			First = Point.Empty;
+			First = System.Drawing.Point.Empty;
 
 			if (!initialized)
 			{
@@ -1292,7 +1321,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void replace_Click(object sender, EventArgs e)
+		private void Replace_Click(object sender, EventArgs e)
 		{
 			var dialog = new Replace(Segments);
 			dialog.ShowDialog();
@@ -1312,11 +1341,11 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void toolStripTextBox1_KeyDown(object sender, KeyEventArgs e)
+		private void ToolStripTextBox1_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				toolStripMenuItem1_Click(sender, new EventArgs());
+				ToolStripMenuItem1_Click(sender, new EventArgs());
 
 				e.Handled = true;
 				e.SuppressKeyPress = true;
@@ -1328,7 +1357,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void toolStripMenuItem1_Click(object sender, EventArgs e)
+		private void ToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			if (toolStripTextBox1.Text == string.Empty) return;
 
@@ -1369,7 +1398,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void minimapPictureBox_MouseMove(object sender, MouseEventArgs e)
+		private void MinimapPictureBox_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (angleLT != PointF.Empty)
 			{
@@ -1381,7 +1410,7 @@ namespace MapEditor
 				var mapX = Map.X + MapWorker.Instance.X * 16128;
 				var mapY = Map.Y + MapWorker.Instance.Y * 16128;
 
-				Game = new Point(mapX, mapY);
+				Game = new System.Drawing.Point(mapX, mapY);
 
 				//
 				// Segment point
@@ -1389,7 +1418,7 @@ namespace MapEditor
 				var segmentX = Math.Min(Map.X / Global.tileLenght / 6, 63);
 				var segmentY = Math.Min(Map.Y / Global.tileLenght / 6, 63);
 
-				Segment = new Point(segmentX, segmentY);
+				Segment = new System.Drawing.Point(segmentX, segmentY);
 				SegmentNumber = Segment.X + Segment.Y * 64;
 
 				//
@@ -1398,7 +1427,7 @@ namespace MapEditor
 				var tileX = Math.Min(Map.X / Global.tileLenght - 6 * Segment.X, 5);
 				var tileY = Math.Min(Map.Y / Global.tileLenght - 6 * Segment.Y, 5);
 
-				Tile = new Point(tileX, tileY);
+				Tile = new System.Drawing.Point(tileX, tileY);
 				TileNumber = Tile.X + Tile.Y * 6;
 
 				//
@@ -1409,12 +1438,12 @@ namespace MapEditor
 
 				SegmentF = new PointF(segmentFX, segmentFY);
 
-				coordonateToolStripStatusLabel.Text = $"{Map.X}, {Map.Y}";
-				gameToolStripStatusLabel.Text = $"{Game.X}, {Game.Y}";
-				segmentToolStripStatusLabel.Text = $"{Segment.X}, {Segment.Y} ({SegmentNumber})";
-				tileToolStripStatusLabel.Text = $"{Tile.X}, {Tile.Y} ({TileNumber})";
+				lbMapCoordinate.Text = $"{Map.X}, {Map.Y}";
+				lbGameCoordinate.Text = $"{Game.X}, {Game.Y}";
+				lbSegmentCoordinate.Text = $"{Segment.X}, {Segment.Y} ({SegmentNumber})";
+				lbTileCoodinate.Text = $"{Tile.X}, {Tile.Y} ({TileNumber})";
 
-				statusStrip1.Refresh();
+				statusStrip.Refresh();
 			}
 		}
 
@@ -1423,7 +1452,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		public void minimapPicture_PointerChanged(object sender, EventArgs e)
+		public void MinimapPicture_PointerChanged(object sender, EventArgs e)
 		{
 			if (position == null) return;
 
@@ -1480,7 +1509,7 @@ namespace MapEditor
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		public void minimapPicture_PointerRemoved(object sender, EventArgs e)
+		public void MinimapPicture_PointerRemoved(object sender, EventArgs e)
 		{
 			angleLT = PointF.Empty;
 			segmentId = 0;
