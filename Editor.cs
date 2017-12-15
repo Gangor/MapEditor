@@ -1130,7 +1130,7 @@ namespace MapEditor
 		/// <param name="mode"></param>
 		private void setCurrentMode(DrawMapMode mode)
 		{
-			First = Point.Empty;
+			First = System.Drawing.Point.Empty;
 
 			moveModeToolStripMenuItem.BackColor = Color.Transparent;
 			pointModeToolStripMenuItem.BackColor = Color.Transparent;
@@ -1174,7 +1174,7 @@ namespace MapEditor
 		/// <param name="mode"></param>
 		private void setCurrentElement(DrawElement element)
 		{
-			First = Point.Empty;
+			First = System.Drawing.Point.Empty;
 
 			nfaModeToolStripMenuItem.BackColor = Color.Transparent;
 			nfcModeToolStripMenuItem.BackColor = Color.Transparent;
@@ -1238,12 +1238,12 @@ namespace MapEditor
 		/// <param name="e"></param>
 		private void mapPictureBox_DragMove(object sender, MouseEventArgs e)
 		{
-			if (First == Point.Empty) return;
+			if (First == System.Drawing.Point.Empty) return;
 
 			int newX = mapPictureBox.Location.X + (e.Location.X - First.X);
 			int newY = mapPictureBox.Location.Y + (e.Location.Y - First.Y);
 
-			flowLayoutPanel1.AutoScrollPosition = new Point(flowLayoutPanel1.AutoScrollOffset.X - newX, flowLayoutPanel1.AutoScrollOffset.Y - newY);
+			flowLayoutPanel1.AutoScrollPosition = new System.Drawing.Point(flowLayoutPanel1.AutoScrollOffset.X - newX, flowLayoutPanel1.AutoScrollOffset.Y - newY);
 			mapPictureBox.Refresh();
 		}
 
@@ -1254,7 +1254,7 @@ namespace MapEditor
 		/// <param name="e"></param>
 		private void mapPictureBox_PreviewDrawRectangle(object sender, MouseEventArgs e)
 		{
-			if (First == Point.Empty) return;
+			if (First == System.Drawing.Point.Empty) return;
 
 			Pen pen = null;
 
@@ -1268,10 +1268,10 @@ namespace MapEditor
 					break;
 			}
 
-			var pointA = new Point(e.X, First.Y);
+			var pointA = new System.Drawing.Point(e.X, First.Y);
 			var pointB = First;
 			var pointC = e.Location;
-			var pointD = new Point(First.X, e.Y);
+			var pointD = new System.Drawing.Point(First.X, e.Y);
 			var graphic = mapPictureBox.CreateGraphics();
 
 			mapPictureBox.Refresh();
@@ -1319,7 +1319,7 @@ namespace MapEditor
 		/// <param name="e"></param>
 		private void mapPictureBox_DrawPoint(object sender, MouseEventArgs e)
 		{
-			if (First == Point.Empty) return;
+			if (First == System.Drawing.Point.Empty) return;
 			
 			switch (currentElement)
 			{
@@ -1334,7 +1334,7 @@ namespace MapEditor
 					break;
 			}
 
-			First = Point.Empty;
+			First = System.Drawing.Point.Empty;
 		}
 
 		/// <summary>
@@ -1344,7 +1344,7 @@ namespace MapEditor
 		/// <param name="e"></param>
 		private void mapPictureBox_DrawRectangle(object sender, MouseEventArgs e)
 		{
-			if (First == Point.Empty || First == e.Location) return;
+			if (First == System.Drawing.Point.Empty || First == e.Location) return;
 
 			switch (currentElement)
 			{
@@ -1413,12 +1413,12 @@ namespace MapEditor
 		/// <summary>
 		/// Stock the first point
 		/// </summary>
-		private Point First = Point.Empty;
-		private Point Game = Point.Empty;
-		private Point Map = Point.Empty;
-		private PointF SegmentF = Point.Empty;
-		private Point Segment = Point.Empty;
-		private Point Tile = Point.Empty;
+		private System.Drawing.Point First = System.Drawing.Point.Empty;
+		private System.Drawing.Point Game = System.Drawing.Point.Empty;
+		private System.Drawing.Point Map = System.Drawing.Point.Empty;
+		private PointF SegmentF = System.Drawing.Point.Empty;
+		private System.Drawing.Point Segment = System.Drawing.Point.Empty;
+		private System.Drawing.Point Tile = System.Drawing.Point.Empty;
 
 		private int SegmentNumber = 0;
 		private int TileNumber = 0;
@@ -1484,7 +1484,7 @@ namespace MapEditor
 				}
 			}
 
-			if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right) { First = Point.Empty; }
+			if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right) { First = System.Drawing.Point.Empty; }
 		}
 
 		/// <summary>
@@ -1943,7 +1943,7 @@ namespace MapEditor
 					DrawPolygon?.Invoke(sender, e);
 					break;
 				default:
-					First = Point.Empty;
+					First = System.Drawing.Point.Empty;
 					break;
 			}
 		}

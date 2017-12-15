@@ -63,7 +63,7 @@ namespace MapEditor.Extends
 
 				e.Graphics.FillRectangle(b, rect);
 				e.Graphics.FillRectangle(b2, rect2);
-				e.Graphics.DrawImage(e.Image, new Point(5, 3));
+				e.Graphics.DrawImage(e.Image, new System.Drawing.Point(5, 3));
 			}
 			else
 			{
@@ -74,7 +74,7 @@ namespace MapEditor.Extends
 
 				e.Graphics.FillRectangle(b, rect);
 				e.Graphics.FillRectangle(b2, rect2);
-				e.Graphics.DrawImage(e.Image, new Point(5, 3));
+				e.Graphics.DrawImage(e.Image, new System.Drawing.Point(5, 3));
 			}
 		}
 
