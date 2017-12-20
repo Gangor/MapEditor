@@ -2,4 +2,5 @@
   <packer id="compressor" />
   <module path="bin\Release\MapEditor.exe" />
   <module path="bin\Release\DataCore.dll" />
+  <module path="bin\Release\System.ValueTuple.dll" />
 </project>
