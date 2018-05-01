@@ -65,38 +65,71 @@ namespace MapEditor.Models
                 z = value;
                 OnPropertyChanged("Z");
             }
-        }
+		}
 
-        [DisplayName("Rotate X")]
-        public float RotateX
+		[Browsable(false)]
+		public float RotateX
+		{
+			get { return rotateX; }
+			set
+			{
+				rotateX = value;
+				OnPropertyChanged("RotateX");
+			}
+		}
+
+		[Browsable(false)]
+		public float RotateY
+		{
+			get { return rotateY; }
+			set
+			{
+				rotateY = value;
+				OnPropertyChanged("RotateY");
+			}
+		}
+
+		[Browsable(false)]
+		public float RotateZ
+		{
+			get { return rotateZ; }
+			set
+			{
+				rotateZ = value;
+				OnPropertyChanged("RotateZ");
+			}
+		}
+
+		[DisplayName("Rotate X")]
+        public float mRotateX
         {
-            get { return rotateX; }
-            set
+            get { return (float)(RotateX * (180.0 / Math.PI)); }
+			set
             {
-                rotateX = value;
+                RotateX = (float)(Math.PI * value / 180.0);
                 OnPropertyChanged("RotateX");
             }
         }
 
         [DisplayName("Rotate Y")]
-        public float RotateY
-        {
-            get { return rotateY; }
-            set
-            {
-                rotateY = value;
-                OnPropertyChanged("RotateY");
+        public float mRotateY
+		{
+			get { return (float)(RotateY * (180.0 / Math.PI)); }
+			set
+			{
+				RotateY = (float)(Math.PI * value / 180.0);
+				OnPropertyChanged("RotateY");
             }
         }
 
         [DisplayName("Rotate Z")]
-        public float RotateZ
-        {
-            get { return rotateZ; }
-            set
-            {
-                rotateZ = value;
-                OnPropertyChanged("RotateZ");
+        public float mRotateZ
+		{
+			get { return (float)(RotateZ * (180.0 / Math.PI)); }
+			set
+			{
+				RotateZ = (float)(Math.PI * value / 180.0);
+				OnPropertyChanged("RotateZ");
             }
         }
 
@@ -200,9 +233,9 @@ namespace MapEditor.Models
             X = Convert.ToSingle(cvs[1]);
             Y = Convert.ToSingle(cvs[2]);
             Z = Convert.ToSingle(cvs[3]);
-            RotateX = Convert.ToSingle(cvs[4]);
-            RotateY = Convert.ToSingle(cvs[5]);
-            RotateZ = Convert.ToSingle(cvs[6]);
+            mRotateX = Convert.ToSingle(cvs[4]);
+            mRotateY = Convert.ToSingle(cvs[5]);
+            mRotateZ = Convert.ToSingle(cvs[6]);
             ScaleX = Convert.ToSingle(cvs[7]);
             ScaleY = Convert.ToSingle(cvs[8]);
             ScaleZ = Convert.ToSingle(cvs[9]);
