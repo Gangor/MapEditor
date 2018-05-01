@@ -1402,7 +1402,12 @@ namespace MapEditor
 		{
 			if (angleLT != PointF.Empty)
 			{
-				Map = _2DUtils.AdjustPoint(e.Location, zoom, false, false);
+				var point = new Point(
+					(int)Math.Ceiling(e.Location.X / minimapZoom + angleLT.X),
+					(int)Math.Ceiling(e.Location.Y / minimapZoom + angleLT.Y)
+				);
+
+				Map = _2DUtils.AdjustPoint(point, 1, false, false);
 
 				//
 				// Game point
@@ -1410,7 +1415,7 @@ namespace MapEditor
 				var mapX = Map.X + MapWorker.Instance.X * 16128;
 				var mapY = Map.Y + MapWorker.Instance.Y * 16128;
 
-				Game = new System.Drawing.Point(mapX, mapY);
+				Game = new Point(mapX, mapY);
 
 				//
 				// Segment point
@@ -1418,7 +1423,7 @@ namespace MapEditor
 				var segmentX = Math.Min(Map.X / Global.tileLenght / 6, 63);
 				var segmentY = Math.Min(Map.Y / Global.tileLenght / 6, 63);
 
-				Segment = new System.Drawing.Point(segmentX, segmentY);
+				Segment = new Point(segmentX, segmentY);
 				SegmentNumber = Segment.X + Segment.Y * 64;
 
 				//
@@ -1427,7 +1432,7 @@ namespace MapEditor
 				var tileX = Math.Min(Map.X / Global.tileLenght - 6 * Segment.X, 5);
 				var tileY = Math.Min(Map.Y / Global.tileLenght - 6 * Segment.Y, 5);
 
-				Tile = new System.Drawing.Point(tileX, tileY);
+				Tile = new Point(tileX, tileY);
 				TileNumber = Tile.X + Tile.Y * 6;
 
 				//
