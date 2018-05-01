@@ -68,17 +68,23 @@
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="Attributes\PropertyGridBrowserAttribute.cs" />
-    <Compile Include="Dialog\FillBit.cs">
+    <Compile Include="Dialog\Export.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialog\FillBit.Designer.cs">
-      <DependentUpon>FillBit.cs</DependentUpon>
+    <Compile Include="Dialog\Export.Designer.cs">
+      <DependentUpon>Export.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialog\Import.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialog\Import.Designer.cs">
       <DependentUpon>Import.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\Splitter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\Splitter.Designer.cs">
+      <DependentUpon>Splitter.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialog\Upgrade.cs">
       <SubType>Form</SubType>
@@ -278,11 +284,14 @@
     <EmbeddedResource Include="Cursor\watch.ani">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialog\FillBit.resx">
-      <DependentUpon>FillBit.cs</DependentUpon>
+    <EmbeddedResource Include="Dialog\Export.resx">
+      <DependentUpon>Export.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialog\Import.resx">
       <DependentUpon>Import.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\Splitter.resx">
+      <DependentUpon>Splitter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialog\Upgrade.resx">
       <DependentUpon>Upgrade.cs</DependentUpon>
