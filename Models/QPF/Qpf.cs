@@ -1,6 +1,7 @@
 ﻿using MapEditor.Attributes;
 using MapEditor.Extends;
 using MapEditor.Modules;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -192,9 +193,7 @@ namespace MapEditor.Models
             }
         }
 
-        [Category("Rotate")]
-        [DisplayName("X")]
-        [PropertyGridBrowsable(true)]
+        [PropertyGridBrowsable(false)]
         public float RotateX
         {
             get { return rotateX; }
@@ -205,9 +204,7 @@ namespace MapEditor.Models
             }
         }
 
-        [Category("Rotate")]
-        [DisplayName("Y")]
-        [PropertyGridBrowsable(true)]
+        [PropertyGridBrowsable(false)]
         public float RotateY
         {
             get { return rotateY; }
@@ -218,15 +215,52 @@ namespace MapEditor.Models
             }
         }
 
-        [Category("Rotate")]
-        [DisplayName("Z")]
-        [PropertyGridBrowsable(true)]
+        [PropertyGridBrowsable(false)]
         public float RotateZ
         {
             get { return rotateZ; }
             set
             {
                 rotateZ = value;
+                OnPropertyChanged("RotateZ");
+            }
+        }
+
+        [Category("Rotate")]
+        [DisplayName("X")]
+        [PropertyGridBrowsable(true)]
+        public float mRotateX
+        {
+            get { return (float)(RotateX * (180.0 / Math.PI)); }
+            set
+            {
+                RotateX = (float)(Math.PI * value / 180.0);
+                OnPropertyChanged("RotateX");
+            }
+        }
+
+        [Category("Rotate")]
+        [DisplayName("Y")]
+        [PropertyGridBrowsable(true)]
+        public float mRotateY
+        {
+            get { return (float)(RotateY * (180.0 / Math.PI)); }
+            set
+            {
+                RotateY = (float)(Math.PI * value / 180.0);
+                OnPropertyChanged("RotateY");
+            }
+        }
+
+        [Category("Rotate")]
+        [DisplayName("Z")]
+        [PropertyGridBrowsable(true)]
+        public float mRotateZ
+        {
+            get { return (float)(RotateZ * (180.0 / Math.PI)); }
+            set
+            {
+                RotateZ = (float)(Math.PI * value / 180.0);
                 OnPropertyChanged("RotateZ");
             }
         }

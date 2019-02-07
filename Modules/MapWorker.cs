@@ -241,7 +241,7 @@ namespace MapEditor.Modules
 			Export(core, $"{filename}.nfw", new Func<byte[]>(Nfw.GetBuffer));
 			Export(core, $"{filename}.pvs", new Func<byte[]>(Pvs.GetBuffer));
 			Export(core, $"{filename}.qpf", new Func<byte[]>(Qpf.GetBuffer));
-			core.Save(folder);
+			core.Save();
 
 			XLog.WriteLine(Levels.Info, "Map saving completed.");
 		}
@@ -300,7 +300,7 @@ namespace MapEditor.Modules
 
 			if (!core.GetEntryExists(filename))
 			{
-				XLog.WriteLine(Levels.Warning, "Introuvable");
+				XLog.WriteLine(Levels.Warning, "not found");
 				return;
 			}
 
@@ -348,7 +348,7 @@ namespace MapEditor.Modules
 
 			if (!File.Exists(fullname))
 			{
-				XLog.WriteLine(Levels.Warning, "Introuvable");
+				XLog.WriteLine(Levels.Warning, "not found");
 				return;
 			}
 

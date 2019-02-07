@@ -63,7 +63,7 @@ namespace MapEditor.Dialog
 
 			Task.Run(() =>
 			{
-				Core.Load(Path.Combine(DataDirectory, "data.000"));
+				Core.Load(Path.Combine(DataDirectory));
 				Invoke(new Action(() => comboBox1.DataSource = MapWorker.Watch(Core)));
 			});
 		}

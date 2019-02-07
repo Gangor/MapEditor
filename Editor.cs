@@ -169,7 +169,7 @@ namespace MapEditor
 				saveAsMenuItem.Enabled = !value;
 				saveAsMenuItem.Enabled = !value;
 				importMenuItem.Enabled = !value;
-				exportMenuItem.Enabled = !value;
+                toolStripMenuItem1.Enabled = !value;
 			}
 			else
 			{
