@@ -9,4 +9,8 @@ Dependencies :<br>
 -System.ValueTuple<br>
 -Oxy Black Pack Cursor (by Marcel)
 
-Rappelz Equation ® 2018 Copyright
+## Repository deprecated !
+
+Project move to :
+
+https://gitlab.com/rappelz-group/tools/mapeditor
